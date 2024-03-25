@@ -5,8 +5,7 @@ Rails.application.routes.draw do
 
   get 'games' => 'games#index'
   get 'game_room' => 'games#show'
-
-  resources :games
+  post 'games' => 'games#create', as: :new_game
 
   get 'pages/landing'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

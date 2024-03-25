@@ -12,12 +12,12 @@ class GamesTest < ApplicationSystemTestCase
     assert_selector 'h1', text: /Chess Application/
 
     click_on 'Play Now!'
-    assert_selector 'h1', text: 'New Game'
+    assert_selector 'a', text: 'New Game'
     assert_selector 'p', text: /Select Opponent/
-    assert_selector 'h3', text: @player.name
+    assert_selector 'h3', text: @player.display_name
     asser_selector 'h4', text: /1/
 
-    click_on 'Vlad the Impaler'
+    click_on(/Vlad the Impaler/)
     find('#chess_board')
   end
 end

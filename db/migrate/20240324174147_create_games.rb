@@ -3,8 +3,8 @@
 class CreateGames < ActiveRecord::Migration[7.1]
   def change
     create_table :games do |t|
-      t.integer :player_one, null: false
-      t.integer :player_two, null: false
+      t.integer :player_one, null: true
+      t.integer :player_two, null: true
       t.integer :winner
 
       t.timestamps

@@ -2,13 +2,16 @@ first:
     display_name: "Ivan the Terrible"
     level: 1
     email: "ivantheterrible@email.com"
+    role: "cpu"
 
 second:
     display_name: "Vlad the Impaler"
     level: 2
     email: "vlad@email.com"
+    role: "cpu"
 
 third:
     display_name: "Hagbard Celene"
     level: 3
     email: "illuminatus@email.com"
+    role: "cpu"

@@ -3,9 +3,13 @@
 class GamesController < ApplicationController
   def index; end
 
-  def show; end
+  def show
+    @opponents = User.computer_opponents
+  end
 
-  def create; end
+  def create
+    puts params[:opponent]
+  end
 
   def update; end
 

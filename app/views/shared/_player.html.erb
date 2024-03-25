@@ -1,0 +1,7 @@
+<li class="min-w-100 bg-slate-600 p-2 rounded-sm border border-slate-950">
+    <%= button_to new_game_path, params: { opponent: player  }  do %>
+        <h3><%= player.display_name %></h3>
+        <h4 class="text-xs">Level: <%= player.level %></h4>
+        <h4 class="text-xs">Rating: <%= player.rank %></h4>
+    <% end %>
+</li>

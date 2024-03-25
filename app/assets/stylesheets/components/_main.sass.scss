@@ -2,3 +2,23 @@ body {
     background: theme('colors.baseBlack');
     color: theme('colors.goldenText');
 }
+
+.btn {
+    padding: 0.8rem 2.2rem;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    transition: all 150ms ease-in-out;
+
+    &.btn__cta {
+        border: 2px solid theme('colors.paleBlue');
+        background-color: theme('colors.brightBlue');
+        color: theme('colors.lightRed');
+
+        &:hover {
+            border: 2px solid theme('colors.brightBlue');
+            background-color: theme('colors.paleBlue');
+            color: theme('colors.warriorRed');
+        }
+    }
+}

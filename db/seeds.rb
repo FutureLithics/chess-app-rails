@@ -9,3 +9,24 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+User.create!(
+  display_name: 'Admin',
+  email: 'admin@futurelithics.com',
+  password: 'password',
+  role: 'admin'
+)
+
+User.create!(
+  display_name: 'Ivan the Terrible',
+  email: 'ivan@futurelithics.com',
+  password: 'password',
+  role: 'cpu'
+)
+
+User.create!(
+  display_name: 'Vlad the Impaler',
+  email: 'vlad@futurelithics.com',
+  password: 'password',
+  role: 'cpu'
+)

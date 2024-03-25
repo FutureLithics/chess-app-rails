@@ -1,4 +1,21 @@
-<div>
-  <h1 class="font-bold text-4xl">Games#create</h1>
-  <p>Find me in app/views/games/create.html.erb</p>
+<div class="w-100 mt-12 w-100 items-stretch flex">
+	<div class="grow-0 flex justify-between px-4 py-8">
+		<div class="flex flex-col font-bold content-center">
+			<p class="flex text-lg font-bold items-center" >
+				Select Opponent:
+			</p>
+			<div>
+				<ul>
+					<%= render partial: "shared/player", collection: @opponents %>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="grow">
+		<div class="flex justify-end content-center px-4 py-8">
+			<a class="btn btn__cta p-1 text-base cursor-pointer" target="_self">New Game</a>
+		</div>
+		<div id="chess_board">
+		</div>
+	</div>
 </div>
