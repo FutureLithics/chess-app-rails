@@ -1,11 +1,11 @@
-<div class="w-100 min-h-screen mt-12 w-100 items-stretch flex">
-	<div class="grow-0 w-1/4 px-4 py-8">
-		<div class="grow-0 bg-slate-600 p-2 rounded-lg border border-slate-950">
+<div class="w-100 min-h-screen mt-12 w-100 items-stretch flex md:flex-row flex-col">
+	<div class="grow md:w-1/4  px-4 py-8">
+		<div class="bg-slate-600 p-2 rounded-lg border border-slate-950">
 			<h4><%= display_user %></h4>
 		</div>
 		<% render partial: "forms/opponents" %>
 	</div>
-	<div class="grow">
+	<div class="grow flex flex-wrap flex-col content-center md:content-start md:justify-center">
 		<div class="flex justify-end content-center px-4 py-8">
 			<%= link_to "New Game",
 				init_game_path,
@@ -15,8 +15,8 @@
 
 		<%= turbo_frame_tag "new_game" %>
 
-		<div id="chess_board" class="w-full flex flex-col">
-			<% chess_board.reverse.each_with_index do |y_axis, y| %>
+		<div id="chess_board" class="w-full max-w-fit flex flex-col mb-24 p-8">
+			<% chess_board.each_with_index do |y_axis, y| %>
 				<div class="flex">
 				<% y_axis.each_with_index do |x_axis, x| %>
 					<% square_attr = define_square(x, y) %>
