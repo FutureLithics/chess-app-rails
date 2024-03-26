@@ -3,6 +3,10 @@ body {
     color: theme('colors.goldenText');
 }
 
+select, option {
+    background-color: theme('colors.baseBlack');
+}
+
 .btn {
     padding: 0.8rem 2.2rem;
     border-radius: 10px;
@@ -20,5 +24,29 @@ body {
             background-color: theme('colors.paleBlue');
             color: theme('colors.warriorRed');
         }
+    }
+}
+
+.select-form {
+    background: theme('colors.baseBlack');
+
+    &:focus {
+        outline: none;
+        border-color: theme('colors.warriorRed');
+        box-shadow: none;
+    }  
+}
+
+.square {
+    width: 75px;
+    height: 75px;
+    border: 1px solid theme('colors.baseBlack');
+
+    &.black {
+        background-color: theme('colors.nightSea');
+    }
+
+    &.white {
+        background-color: theme('colors.ancientBeige');
     }
 }

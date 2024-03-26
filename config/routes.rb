@@ -3,9 +3,12 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  get 'games' => 'games#index'
+  get 'games' => 'games#index', as: :games_page
   get 'game_room' => 'games#show'
+  get 'new_game' => 'games#new', as: :init_game
   post 'games' => 'games#create', as: :new_game
+
+  resources :games
 
   get 'pages/landing'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

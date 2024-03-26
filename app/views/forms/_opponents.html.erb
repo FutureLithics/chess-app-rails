@@ -1,0 +1,12 @@
+<div class="flex flex-col font-bold content-center">
+    <% unless @game.nil? %>
+        <%= form_for @game, url: new_game_path, html: {class: "flex flex-col"} do |f| %>
+            <%= f.label "Select Opponent:", {class: 'mt-2 capitalize'} %>
+            <%= f.select :player_two,
+                options_for_select(opponent_selections),
+                {}, 
+                {class: "select-form ring-0 mt-2"} %>
+            <%= f.submit "Create", {class: 'btn btn__cta mt-2 text-base py-1 px-2'} %>
+        <% end %>
+    <% end %>
+</div>
