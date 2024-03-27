@@ -23,7 +23,6 @@ module GamesHelper
     return ['No Opponents Available', nil] if @opponents.nil?
 
     @opponents.map do |opponent|
-      puts opponent
       display = "#{opponent.display_name} \nLevel: #{opponent.level}"
 
       [display, opponent.id]

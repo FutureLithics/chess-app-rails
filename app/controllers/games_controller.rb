@@ -8,7 +8,10 @@ class GamesController < ApplicationController
     @opponents = User.computer_opponents
   end
 
-  def show; end
+  def show
+    @presenter = BoardPresenter.new(current_user)
+    @players = @presenter.players
+  end
 
   def create
     opponent = game_params[:player_two]
@@ -17,9 +20,8 @@ class GamesController < ApplicationController
 
     if game.save
       # create presenter for sending up game data
-      @presenter = BoardPresenter.new(game)
-
-      puts @presenter
+      @presenter = BoardPresenter.new(current_user, game)
+      @players = @presenter.players
 
       respond_to do |format|
         format.html { redirect_to game_room_path }

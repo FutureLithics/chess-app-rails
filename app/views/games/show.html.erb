@@ -1,11 +1,8 @@
 <div class="w-100 min-h-screen mt-12 w-100 items-stretch flex md:flex-row flex-col">
-	<div class="grow md:w-1/4  px-4 py-8">
-		<div class="bg-slate-600 p-2 rounded-lg border border-slate-950">
-			<h4><%= display_user %></h4>
-		</div>
-		<% render partial: "forms/opponents" %>
+	<div id="players" class="grow md:w-1/4  px-4 py-8">
+		<%= render "players" %>
 	</div>
-	<div class="grow flex flex-wrap flex-col content-center md:content-start md:justify-center">
+	<div class="grow flex flex-wrap md:w-3/4 flex-col content-center md:content-start md:justify-center">
 		<div class="flex justify-end content-center px-4 py-8">
 			<%= link_to "New Game",
 				init_game_path,
