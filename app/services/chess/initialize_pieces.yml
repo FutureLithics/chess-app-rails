@@ -1,0 +1,162 @@
+white:
+    rook:
+        active: true
+        name: "You've been Rooked!"
+        position_y: 7
+        position_x: 0
+    knight:
+        active: true
+        name: "Sir Gallahad"
+        position_y: 7
+        position_x: 1
+    bishop:
+        active: true
+        name: "Prick"
+        position_y: 7
+        position_x: 2
+    queen:
+        active: true
+        name: "Princess Toad"
+        position_y: 7
+        position_x: 3
+    king:
+        active: true
+        name: "King Leer"
+        position_y: 7
+        position_x: 4
+    bishop:
+        active: true
+        name: "Prick's Cousin"
+        position_y: 7
+        position_x: 5
+    knight:
+        active: true
+        name: "English Kinighit"
+        position_y: 7
+        position_x: 6
+    rook:
+        active: true
+        name: "Rooked Again!"
+        position_y: 7
+        position_x: 7       
+    pawn:
+        active: true
+        name: "Dudface"
+        position_y: 6
+        position_x: 0
+    pawn:
+        active: true
+        name: "Dudface's Idiot Brother"
+        position_y: 6
+        position_x: 1
+    pawn:
+        active: true
+        name: "Your Mom"
+        position_y: 6
+        position_x: 2
+    pawn:
+        active: true
+        name: "Mr. Hamster"
+        position_y: 6
+        position_x: 3
+    pawn:
+        active: true
+        name: "Mr. Peanut Butter"
+        position_y: 6
+        position_x: 4
+    pawn:
+        active: true
+        name: "Five Finger Donkey Punch"
+        position_y: 6
+        position_x: 5
+    pawn:
+        active: true
+        name: "Doofus"
+        position_y: 6
+        position_x: 6
+    pawn:
+        active: true
+        name: "Stank Mouth"
+        position_y: 6
+        position_x: 7
+black:
+    rook:
+        active: true
+        name: "The Dork Tower"
+        position_y: 7
+        position_x: 0
+    knight:
+        active: true
+        name: "Sherriff of Nottingham"
+        position_y: 7
+        position_x: 1
+    bishop:
+        active: true
+        name: "Dark Lord's Apprentice"
+        position_y: 7
+        position_x: 2
+    queen:
+        active: true
+        name: "Lilith"
+        position_y: 7
+        position_x: 3
+    king:
+        active: true
+        name: "Lucien"
+        position_y: 7
+        position_x: 4
+    bishop:
+        active: true
+        name: "Jafar"
+        position_y: 7
+        position_x: 5
+    knight:
+        active: true
+        name: "I'm Stealing Your Woman!"
+        position_y: 7
+        position_x: 6
+    rook:
+        active: true
+        name: "Lonely Sentinel"
+        position_y: 7
+        position_x: 7       
+    pawn:
+        active: true
+        name: "Dunderhead"
+        position_y: 6
+        position_x: 0
+    pawn:
+        active: true
+        name: "Dumbfounded"
+        position_y: 6
+        position_x: 1
+    pawn:
+        active: true
+        name: "Chowderhead"
+        position_y: 6
+        position_x: 2
+    pawn:
+        active: true
+        name: "I wasn't supposed to be here today"
+        position_y: 6
+        position_x: 3
+    pawn:
+        active: true
+        name: "Idjit"
+        position_y: 6
+        position_x: 4
+    pawn:
+        active: true
+        name: "Stankmouth's Horrid Cousin"
+        position_y: 6
+        position_x: 5
+    pawn:
+        active: true
+        name: "Your Mom A Second Time"
+        position_y: 6
+        position_x: 6
+    pawn:
+        active: true
+        name: "Jafo"
+        position_y: 6
+        position_x: 7

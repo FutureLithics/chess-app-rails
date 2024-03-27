@@ -1,6 +1,11 @@
 <div id="chess_board" class="w-full max-w-fit flex flex-col mb-24 p-8">
+    <% letters = ('a'..'h').to_a.reverse %>
+    <% numerals = (1..8).to_a %>
     <% chess_board.each_with_index do |y_axis, y| %>
         <div class="flex">
+            <div class="numerals flex justify-center items-center">
+                <span><%= letters[y] %></span>
+            </div>
             <% y_axis.each_with_index do |x_axis, x| %>
                 <% square = define_square(x, y) %>
                 <div class="square <%= square[:color] == 0 ? "black" : "white" %>" 
@@ -10,4 +15,12 @@
             <% end %>
         </div>
     <% end %>
+    <div class="w-full flex grow"> <!-- Numbers -->
+        <div class="numerals"></div><!-- Placeholder Element -->
+        <% (1..8).to_a.each do |n| %>
+            <div class="flex justify-center items-center grow">
+                <span><%= n %></span>
+            </div>  
+        <% end %>
+    </div>
 </div>
