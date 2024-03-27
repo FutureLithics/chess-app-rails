@@ -10,7 +10,6 @@ class GamesController < ApplicationController
 
   def show
     @presenter = BoardPresenter.new(current_user)
-    @players = @presenter.players
   end
 
   def create
@@ -21,7 +20,6 @@ class GamesController < ApplicationController
     if game.save
       # create presenter for sending up game data
       @presenter = BoardPresenter.new(current_user, game)
-      @players = @presenter.players
 
       respond_to do |format|
         format.html { redirect_to game_room_path }

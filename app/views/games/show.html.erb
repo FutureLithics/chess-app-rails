@@ -1,6 +1,6 @@
 <div class="w-100 min-h-screen mt-12 w-100 items-stretch flex md:flex-row flex-col">
 	<div id="players" class="grow md:w-1/4  px-4 py-8">
-		<%= render "players" %>
+		<%= render "games/partials/players" %>
 	</div>
 	<div class="grow flex flex-wrap md:w-3/4 flex-col content-center md:content-start md:justify-center">
 		<div class="flex justify-end content-center px-4 py-8">
@@ -12,18 +12,6 @@
 
 		<%= turbo_frame_tag "new_game" %>
 
-		<div id="chess_board" class="w-full max-w-fit flex flex-col mb-24 p-8">
-			<% chess_board.each_with_index do |y_axis, y| %>
-				<div class="flex">
-				<% y_axis.each_with_index do |x_axis, x| %>
-					<% square_attr = define_square(x, y) %>
-					<div class="square <%= square_attr[:color] == 0 ? "black" : "white" %>" 
-					     data-x="<%= square_attr[:x] %>"
-						 data-y="<%= square_attr[:y] %>">
-					</div>
-				<% end %>
-				</div>
-			<% end %>
-		</div>
+		<%= render "games/partials/board" %>
 	</div>
 </div>

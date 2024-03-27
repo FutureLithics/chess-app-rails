@@ -1,0 +1,13 @@
+<div id="chess_board" class="w-full max-w-fit flex flex-col mb-24 p-8">
+    <% chess_board.each_with_index do |y_axis, y| %>
+        <div class="flex">
+            <% y_axis.each_with_index do |x_axis, x| %>
+                <% square = define_square(x, y) %>
+                <div class="square <%= square[:color] == 0 ? "black" : "white" %>" 
+                        data-x="<%= square[:x] %>"
+                        data-y="<%= square[:y] %>">
+                </div>
+            <% end %>
+        </div>
+    <% end %>
+</div>
