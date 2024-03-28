@@ -1,0 +1,194 @@
+white:
+    0:
+        piece_type: "rook"
+        active: true
+        name: "Glastonbury Tor"
+        position_y: 7
+        position_x: 0
+    1:
+        piece_type: "knight"
+        active: true
+        name: "Parzifal"
+        position_y: 7
+        position_x: 1
+    2:
+        piece_type: "bishop"
+        active: true
+        name: "Merlin"
+        position_y: 7
+        position_x: 2
+    3:
+        piece_type: "queen"
+        active: true
+        name: "Guenevere"
+        position_y: 7
+        position_x: 3
+    4:
+        piece_type: "king"
+        active: true
+        name: "Arthur"
+        position_y: 7
+        position_x: 4
+    5:
+        piece_type: "bishop"
+        active: true
+        name: "Father Ted"
+        position_y: 7
+        position_x: 5
+    6:
+        piece_type: "knight"
+        active: true
+        name: "English Kinighit"
+        position_y: 7
+        position_x: 6
+    7:
+        piece_type: "rook"
+        active: true
+        name: "Chartres"
+        position_y: 7
+        position_x: 7       
+    8:
+        piece_type: "pawn"
+        active: true
+        name: "The Gas Man"
+        position_y: 6
+        position_x: 0
+    9:
+        piece_type: "pawn"
+        active: true
+        name: "Tazer Face"
+        position_y: 6
+        position_x: 1
+    10:
+        piece_type: "pawn"
+        active: true
+        name: "Your Mom"
+        position_y: 6
+        position_x: 2
+    11:
+        piece_type: "pawn"
+        active: true
+        name: "Mr. Hedgehog"
+        position_y: 6
+        position_x: 3
+    12:
+        piece_type: "pawn"
+        active: true
+        name: "Mr. Peanut Butter"
+        position_y: 6
+        position_x: 4
+    13:
+        piece_type: "pawn"
+        active: true
+        name: ""
+        position_y: 6
+        position_x: 5
+    14:
+        piece_type: "pawn"
+        active: true
+        name: "Fred Colon"
+        position_y: 6
+        position_x: 6
+    15:
+        piece_type: "pawn"
+        active: true
+        name: "Nobby Nobbs"
+        position_y: 6
+        position_x: 7
+black:
+    16:
+        piece_type: "rook"
+        active: true
+        name: "The Dork Tower"
+        position_y: 0
+        position_x: 0
+    17:
+        piece_type: "knight"
+        active: true
+        name: "Sherriff of Nottingham"
+        position_y: 0
+        position_x: 1
+    18:
+        piece_type: "bishop"
+        active: true
+        name: "Dark Lord's Apprentice"
+        position_y: 0
+        position_x: 2
+    19:
+        piece_type: "queen"
+        active: true
+        name: "Lilith"
+        position_y: 0
+        position_x: 3
+    20:
+        piece_type: "king"
+        active: true
+        name: "Ahriman"
+        position_y: 0
+        position_x: 4
+    21:
+        piece_type: "bishop"
+        active: true
+        name: "The Black Abbot"
+        position_y: 0
+        position_x: 5
+    22:
+        piece_type: "knight"
+        active: true
+        name: "Uncle Frank"
+        position_y: 0
+        position_x: 6
+    23:
+        piece_type: "rook"
+        active: true
+        name: "The Lonely Sentinel"
+        position_y: 0
+        position_x: 7       
+    24:
+        piece_type: "pawn"
+        active: true
+        name: "Dunderhead"
+        position_y: 1
+        position_x: 0
+    25:
+        piece_type: "pawn"
+        active: true
+        name: "Dumbfounded"
+        position_y: 1
+        position_x: 1
+    26:
+        piece_type: "pawn"
+        active: true
+        name: "Chowderhead"
+        position_y: 1
+        position_x: 2
+    27:
+        piece_type: "pawn"
+        active: true
+        name: "Dante"
+        position_y: 1
+        position_x: 3
+    28:
+        piece_type: "pawn"
+        active: true
+        name: "The Idiot"
+        position_y: 1
+        position_x: 4
+    29:
+        piece_type: "pawn"
+        active: true
+        name: "Stankmouth's Horrid Cousin"
+        position_y: 1
+        position_x: 5
+    30:
+        piece_type: "pawn"
+        active: true
+        name: "Your Mom A Second Time"
+        position_y: 1
+        position_x: 6
+    31:
+        piece_type: "pawn"
+        active: true
+        name: "Jafo"
+        position_y: 1
+        position_x: 7

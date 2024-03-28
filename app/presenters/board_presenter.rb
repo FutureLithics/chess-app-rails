@@ -26,4 +26,10 @@ class BoardPresenter
       { display_name: player[:display_name], rating: player[:rank], level: player[:level] }
     end
   end
+
+  def pieces
+    unless @game.nil?
+        game.get_active_pieces
+    end
+  end
 end

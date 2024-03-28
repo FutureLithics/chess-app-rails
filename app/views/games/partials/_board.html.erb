@@ -1,6 +1,5 @@
 <div id="chess_board" class="w-full max-w-fit flex flex-col mb-24 p-8">
     <% letters = ('a'..'h').to_a.reverse %>
-    <% numerals = (1..8).to_a %>
     <% chess_board.each_with_index do |y_axis, y| %>
         <div class="flex">
             <div class="numerals flex justify-center items-center">
@@ -11,6 +10,7 @@
                 <div class="square <%= square[:color] == 0 ? "black" : "white" %>" 
                         data-x="<%= square[:x] %>"
                         data-y="<%= square[:y] %>">
+                        <p><%= piece_helper(@presenter.pieces, x, y) %></p>
                 </div>
             <% end %>
         </div>

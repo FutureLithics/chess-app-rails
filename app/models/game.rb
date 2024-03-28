@@ -1,5 +1,17 @@
 # frozen_string_literal: true
 
 class Game < ApplicationRecord
-  has_many :pieces
+    after_create :initialize_game
+
+    has_many :pieces
+
+    def get_active_pieces
+        self.pieces(&:active)
+    end
+
+    private
+
+    def initialize_game
+        ChessService.new(self)
+    end
 end
