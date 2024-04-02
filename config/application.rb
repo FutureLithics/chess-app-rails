@@ -18,7 +18,7 @@ module Chessapp
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
     config.autoload_paths += Dir[Rails.root.join("app", "services", "chess")]
-    config.autoload_paths += Dir[Rails.root.join("app", "services", "chess", "{*/}")]
+    config.autoload_paths += Dir[Rails.root.join("app", "services", "chess", "**/")]
 
     config.active_record.verify_foreign_keys_for_fixtures = false
 

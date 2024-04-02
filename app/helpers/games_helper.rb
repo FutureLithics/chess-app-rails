@@ -31,14 +31,9 @@ module GamesHelper
 
     def piece_helper(pieces, x, y)
         unless pieces.nil?
-            collection = pieces.select { |piece|  piece[:position_x] == x && piece[:position_y] == y }
+            collection = pieces.select { |piece|  piece[:position_x].to_i == x && piece[:position_y].to_i == y }
 
-            unless collection[0].nil?
-                type = collection[0][:piece_type]
-                color = collection[0][:color]
-
-                "#{color} #{type}"
-            end
+            collection[0]
         end
     end
 end
