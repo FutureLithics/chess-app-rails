@@ -19,7 +19,7 @@ FactoryBot.define do
   factory :piece do
     piece_type { 'pawn' }
     color { 'white' }
-    position_x { 0 }
+    position_x { 4 }
     position_y { 6 }
     active { true }
     moved { false }

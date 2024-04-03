@@ -12,7 +12,7 @@ class ChessService < ApplicationService
     initialize_pieces(game)
   end
 
-  def self.get_available_moves(piece)
-    get_moves_by_piece(piece)
+  def self.get_available_moves(piece, pieces)
+    get_moves_by_piece(piece, pieces)
   end
 end

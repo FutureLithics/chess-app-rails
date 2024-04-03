@@ -32,9 +32,28 @@ class PawnMoves < PieceBase
 
   def basic_moves(moves, x, y)
     PATTERNS.each_with_index do |m, i|
-      moves.push([x + m[0], y + direction * m[1]]) if i < 2
+      moveX = x + m[0]
+      moveY = y + direction * m[1]
+
+      moves.push([moveX, moveY]) if determine_valid_move(moveX, moveY, i)
     end
 
     moves
+  end
+
+  def determine_valid_move(x, y, i)
+    if [0, 1].include?(i)
+      is_square_occupied?(x, y) ? false : true
+    else
+      is_square_occupied_by_enemy?(x, y) ? true : false
+    end
+  end
+
+  def is_square_occupied?(x, y)
+    pieces.any? { |c| c[:position_x] == x && c[:position_y] == y }
+  end
+
+  def is_square_occupied_by_enemy?(x, y)
+    pieces.any? { |c| c[:position_x] == x && c[:position_y] == y && c[:color] != piece[:color] }
   end
 end
