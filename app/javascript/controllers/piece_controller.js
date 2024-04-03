@@ -1,25 +1,57 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = ['piece']
+    static targets = ['piece'];
+    static classes = ['available', 'selected'];
+
     initialize() {
         this.piece = null;
-        this.selectMode = true
+        this.selectMode = false;
     }
 
     connect() {
+        console.log(this.pieceTargets, "targets connect !");
         // console.log(this.element, "pieces!")
     }
 
-    select() {
-        if (this.selectMode && this.data.get("id") !== this.piece) {
-            this.piece = this.data.get("id");
-            this.selectMode = false;
+    select(event) {
+        this.removeClass(this.availableClass);
+        this.removeClass(this.selectedClass);
+        this.piece = event.target;
+        this.piece.classList.add(this.selectedClass);
+        let moves = JSON.parse(this.piece.dataset.pieceMoves || "[]");
 
-            // render moves available to piece on board
+        // render moves available to piece on board
+        this.displayAvailableMoves(moves);
+    }
 
-            console.log(this.data.get("moves"))
-        }
+    displayAvailableMoves(moves){
+        this.pieceTargets.forEach((element) => {
+            let elX = Number(element.dataset.pieceX),
+                elY = Number(element.dataset.pieceY);
+
+            if (this.matchByPosition(elX, elY, moves)) {        
+                element.classList.add(this.availableClass);
+            }
+        })
+    }
+
+    removeClass(classes) {
+        this.pieceTargets.forEach((element) => {
+            element.classList.remove(classes);
+        })
+    }
+
+    matchByPosition(x, y, moves) {
+        let bool = false;
+
+        moves.forEach((move) => {
+            if (move[0] == x && move[1] == y) {
+                bool = true;
+            }
+        })
+
+        return bool;
     }
 
     displayPieces(){

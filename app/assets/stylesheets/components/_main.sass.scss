@@ -49,6 +49,14 @@ select, option {
     &.white {
         background-color: theme('colors.ancientBeige');
     }
+
+    &.move-available {
+        background-color: theme('colors.red.500');
+    }
+
+    &.piece-selected {
+        box-shadow: inset 1px 1px 3px 2px theme('colors.green.500');;
+    }
 }
 
 .numerals {

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :user do
-    id {0}
+    id { 0 }
     display_name { 'Vlad the Impaler' }
     email { 'vladtheimpaler@futurelithics.com' }
     password { 'password' }

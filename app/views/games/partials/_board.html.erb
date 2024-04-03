@@ -1,4 +1,9 @@
-<div id="chess_board" class="w-full max-w-fit flex flex-col mb-24 px-8">
+<div 
+    id="chess_board" 
+    class="w-full max-w-fit flex flex-col mb-24 px-8" 
+    data-controller="piece"
+    data-piece-available-class="move-available"
+    data-piece-selected-class="piece-selected">
     <% letters = ('a'..'h').to_a.reverse %>
     <% chess_board.each_with_index do |y_axis, y| %>
         <div class="flex">
@@ -14,10 +19,9 @@
                         data-piece-y="<%= square[:y] %>"
                         data-piece-id="<%= piece && piece[:id] %>"
                         data-piece-moves="<%= piece && piece[:available_moves] %>"
-                        data-controller="piece"
                         data-piece-target="piece"
                         data-action="click->piece#select">
-                        <p><%= piece && "#{piece[:color]} #{piece[:piece_type]}" %></p>
+                        <p class="pointer-events-none"><%= piece && "#{piece[:color]} #{piece[:piece_type]}" %></p>
                 </div>
             <% end %>
         </div>

@@ -28,10 +28,10 @@ class BoardPresenter
   end
 
   def pieces
-    unless game.nil?
-        game.get_active_pieces.map do |piece|
-            ChessService.get_available_moves(piece)
-        end
+    return if game.nil?
+
+    game.get_active_pieces.map do |piece|
+      ChessService.get_available_moves(piece)
     end
   end
 end
