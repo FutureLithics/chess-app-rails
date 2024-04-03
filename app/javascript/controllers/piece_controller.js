@@ -10,19 +10,31 @@ export default class extends Controller {
     }
 
     connect() {
-        console.log(this.pieceTargets, "targets connect !");
-        // console.log(this.element, "pieces!")
+        // console.log(this.pieceTargets, "targets connect !");
     }
 
     select(event) {
         this.removeClass(this.availableClass);
         this.removeClass(this.selectedClass);
-        this.piece = event.target;
-        this.piece.classList.add(this.selectedClass);
-        let moves = JSON.parse(this.piece.dataset.pieceMoves || "[]");
 
-        // render moves available to piece on board
-        this.displayAvailableMoves(moves);
+        if (!this.selectMode) {
+            this.piece = event.target;
+            this.piece.classList.add(this.selectedClass);
+            this.selectMode = true
+            let moves = JSON.parse(this.piece.dataset.pieceMoves || "[]");
+
+            // render moves available to piece on board
+            this.displayAvailableMoves(moves);            
+        } else if (this.selectMode && this.piece) {
+            const {pieceId, pieceX, pieceY} = this.piece?.dataset
+            this.movePiece(pieceId, pieceX, pieceY)
+
+            this.selectMode = false
+        } else {
+            this.piece = event.target;
+            this.piece.classList.add(this.selectedClass);            
+        }
+
     }
 
     displayAvailableMoves(moves){
@@ -58,5 +70,10 @@ export default class extends Controller {
         this.pieceTargets.forEach((element, index) => {
             console.log(element.dataset.pieceX, element.dataset.pieceY)
         })
+    }
+
+    movePiece(id, x, y) {
+        // add fetch/post request to update controller
+        console.log(id, x, y)
     }
 }

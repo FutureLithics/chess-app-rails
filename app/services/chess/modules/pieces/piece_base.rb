@@ -8,4 +8,12 @@ class PieceBase
     @pieces = pieces
     @color = piece[:color]
   end
+
+  def is_square_occupied?(x, y)
+    pieces.any? { |c| c[:position_x] == x && c[:position_y] == y }
+  end
+
+  def is_square_occupied_by_enemy?(x, y)
+    pieces.any? { |c| c[:position_x] == x && c[:position_y] == y && c[:color] != piece[:color] }
+  end
 end

@@ -5,6 +5,8 @@ class Game < ApplicationRecord
 
   has_many :pieces
 
+  scope :active_game_by_user, ->(user) { where(player_one: user).or(where(player_two: user)) }
+
   def get_active_pieces
     pieces(&:active)
   end

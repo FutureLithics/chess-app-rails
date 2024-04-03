@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class GamesController < ApplicationController
+  helper_method :current_or_guest_user
+
   def index; end
 
   def new
@@ -9,17 +11,19 @@ class GamesController < ApplicationController
   end
 
   def show
-    @presenter = BoardPresenter.new(current_user)
+    game = Game.active_game_by_user(current_or_guest_user).last
+
+    @presenter = BoardPresenter.new(current_or_guest_user, game)
   end
 
   def create
     opponent = game_params[:player_two]
 
-    game = Game.new(player_one: current_user, player_two: opponent)
+    game = Game.new(player_one: current_or_guest_user.id, player_two: opponent)
 
     if game.save
       # create presenter for sending up game data
-      @presenter = BoardPresenter.new(current_user, game)
+      @presenter = BoardPresenter.new(current_or_guest_user, game)
 
       respond_to do |format|
         format.html { redirect_to game_room_path }

@@ -12,8 +12,8 @@ class BoardPresenter
     if game.nil?
       [player_stats(user), nil]
     else
-      player_one = User.find_by_id(game.player_one)
-      player_two = User.find_by_id(game.player_two)
+      player_one = User.find_by_id(game[:player_one])
+      player_two = User.find_by_id(game[:player_two])
 
       [player_stats(player_one), player_stats(player_two)]
     end
@@ -21,9 +21,9 @@ class BoardPresenter
 
   def player_stats(player)
     if player.nil?
-      { display_name: 'Guest', rating: 'N/A', level: 'N/A' }
+      { display_name: 'Guest', rank: 'N/A', level: 'N/A' }
     else
-      { display_name: player[:display_name], rating: player[:rank], level: player[:level] }
+      { display_name: player[:display_name], rank: player[:rank], level: player[:level] }
     end
   end
 

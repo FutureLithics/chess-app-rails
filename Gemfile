@@ -32,6 +32,7 @@ gem 'cssbundling-rails'
 gem 'jbuilder'
 
 gem 'devise'
+gem 'devise-guests'
 
 gem 'redis'
 
