@@ -26,8 +26,11 @@ export default class extends Controller {
             // render moves available to piece on board
             this.displayAvailableMoves(moves);            
         } else if (this.selectMode && this.piece) {
-            const {pieceId, pieceX, pieceY} = this.piece?.dataset
-            this.movePiece(pieceId, pieceX, pieceY)
+            const id = this.piece?.dataset?.pieceId
+            const x = event.target.dataset.pieceX;
+            const y = event.target.dataset.pieceY;
+
+            this.movePiece(id, x, y)
 
             this.selectMode = false
         } else {
@@ -75,5 +78,26 @@ export default class extends Controller {
     movePiece(id, x, y) {
         // add fetch/post request to update controller
         console.log(id, x, y)
+
+        const csrfToken = document.querySelector("[name='csrf-token']").content
+        const moveParams = {
+            piece_id: id,
+            position_x: x,
+            position_y: y
+        }
+
+        fetch(`/move`, {
+            method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+            },
+            body: JSON.stringify({ move: moveParams  }) // body data type must match "Content-Type" header
+        })
+        .then(res => res.json())
+        .then((res) =>  console.log(res, "move?"))
     }
 }

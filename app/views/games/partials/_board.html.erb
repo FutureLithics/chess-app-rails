@@ -1,9 +1,12 @@
+<%= turbo_stream_from "move_updates" %>
+
 <div 
     id="chess_board" 
     class="w-full max-w-fit flex flex-col mb-24 px-8" 
     data-controller="piece"
     data-piece-available-class="move-available"
     data-piece-selected-class="piece-selected">
+    
     <% letters = ('a'..'h').to_a.reverse %>
     <% chess_board.each_with_index do |y_axis, y| %>
         <div class="flex">
@@ -12,8 +15,7 @@
             </div>
             <% y_axis.each_with_index do |x_axis, x| %>
                 <% square = define_square(x, y) %>
-                <% puts @presenter.pieces %>
-                <% piece = piece_helper(@presenter.pieces, x, y) %>
+                <% piece = piece_helper(presenter.pieces, x, y) %>
                 <div class="square <%= square[:color] == 0 ? "black" : "white" %>" 
                         data-piece-x="<%= square[:x] %>"
                         data-piece-y="<%= square[:y] %>"

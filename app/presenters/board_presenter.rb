@@ -3,7 +3,7 @@
 class BoardPresenter
   attr_accessor :user, :game
 
-  def initialize(user, game = nil)
+  def initialize(user = nil, game = nil)
     @game = game
     @user = user
   end

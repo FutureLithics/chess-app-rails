@@ -34,6 +34,22 @@ class GamesController < ApplicationController
     end
   end
 
+  def move
+    piece = Piece.find_by_id(move_params[:piece_id])
+    x = move_params[:position_x]
+    y = move_params[:position_y]
+
+    valid_move = piece.update(position_x: x, position_y: y)
+
+    if valid_move
+      respond_to do |format|
+        format.json { render json: { success: true } }
+      end
+    else
+      flash.alert = 'Move Invalid'
+    end
+  end
+
   def update; end
 
   def destroy; end
@@ -42,5 +58,9 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(:player_two)
+  end
+
+  def move_params
+    params.require(:move).permit(:piece_id, :position_x, :position_y)
   end
 end

@@ -13,6 +13,11 @@
   </head>
 
   <body>
+    <% flash.each do |type, msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
     <main class="container mx-auto px-4 min-h-screen">
       <%= yield %>
     </main>

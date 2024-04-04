@@ -5,8 +5,10 @@ Rails.application.routes.draw do
 
   get 'games' => 'games#index', as: :games_page
   get 'game_room' => 'games#show'
+  put 'game_room' => 'games#show'
   get 'new_game' => 'games#new', as: :init_game
   post 'games' => 'games#create', as: :new_game
+  put 'move' => 'games#move'
 
   resources :games
 
