@@ -6,7 +6,6 @@ class PawnMoves < PieceBase
   PATTERNS = [[0, 1], [0, 2], [1, 1], [-1, 1]].freeze
 
   def piece_with_moves
-    piece
     @direction = determine_direction
     @moved = piece[:moved]
 

@@ -16,8 +16,6 @@ class Piece < ApplicationRecord
     occupier = position_occupier(game, position_x, position_y)
     valid = determine_enemy(occupier, color) unless occupier.nil?
 
-    p valid, "valid: \n\n\n"
-
     valid
   end
 
@@ -44,8 +42,6 @@ class Piece < ApplicationRecord
   end
 
   def send_updated_board_presenter
-    p game_id, 'game_id!'
-
     game = Game.find_by_id(game_id)
     presenter = BoardPresenter.new(nil, game)
 

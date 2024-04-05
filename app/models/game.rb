@@ -8,7 +8,7 @@ class Game < ApplicationRecord
   scope :active_game_by_user, ->(user) { where(player_one: user).or(where(player_two: user)) }
 
   def get_active_pieces
-    pieces(&:active)
+    pieces.where(active: true)
   end
 
   private

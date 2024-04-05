@@ -5,6 +5,8 @@ module PieceMoves
     case piece[:piece_type]
     when 'pawn'
       PawnMoves.new(piece, pieces).piece_with_moves
+    when 'knight'
+      KnightMoves.new(piece, pieces).piece_with_moves
     else
       piece
     end
