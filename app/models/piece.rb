@@ -13,14 +13,21 @@ class Piece < ApplicationRecord
   def validate_move
     valid = true
     game = Game.find_by_id(game_id)
-    occupier = position_occupier(game, position_x, position_y)
+    pieces = game.get_active_pieces
+
+    occupier = position_occupier(pieces, self.position_x, self.position_y)
     valid = determine_enemy(occupier, color) unless occupier.nil?
 
     valid
   end
 
-  def position_occupier(game, pos_x, pos_y)
-    game.get_active_pieces.select do |piece|
+  def is_in_available_moves(moves, position_x, position_y)
+    p moves[:available_moves], position_x, position_y, "MOVES!!!"
+    moves[:available_moves].any? { |m| m[0] == position_x && m[1] == position_y }
+  end
+
+  def position_occupier(pieces, pos_x, pos_y)
+    pieces.select do |piece|
       piece[:position_x] == pos_x && piece[:position_y] == pos_y
     end.first
   end

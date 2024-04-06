@@ -19,8 +19,7 @@
                 <div class="square <%= square[:color] == 0 ? "black" : "white" %>" 
                         data-piece-x="<%= square[:x] %>"
                         data-piece-y="<%= square[:y] %>"
-                        data-piece-id="<%= piece && piece[:id] %>"
-                        data-piece-moves="<%= piece && piece[:available_moves] %>"
+                        data-piece-item="<%= piece.to_json %>"
                         data-piece-target="piece"
                         data-action="click->piece#select">
                         <p class="pointer-events-none"><%= piece && "#{piece[:color]} #{piece[:piece_type]}" %></p>

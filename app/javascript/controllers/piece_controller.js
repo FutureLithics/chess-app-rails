@@ -20,17 +20,22 @@ export default class extends Controller {
         if (!this.selectMode) {
             this.piece = event.target;
             this.piece.classList.add(this.selectedClass);
-            this.selectMode = true
-            let moves = JSON.parse(this.piece.dataset.pieceMoves || "[]");
 
-            // render moves available to piece on board
-            this.displayAvailableMoves(moves);            
+            this.setSelect();
         } else if (this.selectMode && this.piece) {
-            const id = this.piece?.dataset?.pieceId
+            let item = this.parseItem(this.piece?.dataset);
             const x = event.target.dataset.pieceX;
             const y = event.target.dataset.pieceY;
+            const inAvailableMoves = item?.available_moves.filter((move) => {
+                return move[0] == x && move[1] == y;
+            })
+            
+            if(item && inAvailableMoves.length > 0) {
+                const id = item.id;
 
-            this.movePiece(id, x, y)
+                this.movePiece(id, x, y)                
+            }
+
 
             this.selectMode = false
         } else {
@@ -38,6 +43,27 @@ export default class extends Controller {
             this.piece.classList.add(this.selectedClass);            
         }
 
+    }
+
+    parseItem(data) {
+        let item = data?.pieceItem
+
+        if (item) {
+            return JSON.parse(item);
+        } else {
+            return false;
+        }
+    }
+
+    setSelect() {
+        let item = this.parseItem(this.piece?.dataset);
+
+        if (item) {
+            this.selectMode = true
+
+            // render moves available to piece on board
+            this.displayAvailableMoves(item?.available_moves);                 
+        }
     }
 
     displayAvailableMoves(moves){
@@ -76,8 +102,6 @@ export default class extends Controller {
     }
 
     movePiece(id, x, y) {
-        // add fetch/post request to update controller
-        console.log(id, x, y)
 
         const csrfToken = document.querySelector("[name='csrf-token']").content
         const moveParams = {
