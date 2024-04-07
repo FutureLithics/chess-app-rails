@@ -43,8 +43,8 @@ class PawnMoves < PieceBase
   def determine_valid_move(x, y, i)
     if i.zero?
       is_square_occupied?(x, y) ? false : true
-    elsif (i == 1) && !piece[:moved]
-      is_square_occupied?(x, y) ? false : true
+    elsif (i == 1)
+        piece[:moved].nil? ? is_square_occupied?(x, y) ? false : true : false
     else
       is_square_occupied_by_enemy?(x, y) ? true : false
     end

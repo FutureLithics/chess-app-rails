@@ -18,6 +18,8 @@ class Piece < ApplicationRecord
     occupier = position_occupier(pieces, self.position_x, self.position_y)
     valid = determine_enemy(occupier, color) unless occupier.nil?
 
+    ensure_moved_set if valid
+
     valid
   end
 
@@ -41,7 +43,9 @@ class Piece < ApplicationRecord
   end
 
   def ensure_moved_set
-    self.moved = true
+    unless self.moved
+        self.moved = true
+    end
   end
 
   def kill_piece(piece)
