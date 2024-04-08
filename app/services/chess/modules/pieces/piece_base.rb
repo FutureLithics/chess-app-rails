@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class PieceBase
-  attr_accessor :piece, :pieces, :color
+  attr_accessor :piece, :pieces, :color, :stops
 
   def initialize(piece, pieces)
     @piece = piece
     @pieces = pieces
     @color = piece[:color]
+    @stops = []
   end
 
   def is_square_occupied?(x, y)

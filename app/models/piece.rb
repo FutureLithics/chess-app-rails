@@ -15,7 +15,7 @@ class Piece < ApplicationRecord
     game = Game.find_by_id(game_id)
     pieces = game.get_active_pieces
 
-    occupier = position_occupier(pieces, self.position_x, self.position_y)
+    occupier = position_occupier(pieces, position_x, position_y)
     valid = determine_enemy(occupier, color) unless occupier.nil?
 
     ensure_moved_set if valid
@@ -24,7 +24,7 @@ class Piece < ApplicationRecord
   end
 
   def is_in_available_moves(moves, position_x, position_y)
-    p moves[:available_moves], position_x, position_y, "MOVES!!!"
+    p moves[:available_moves], position_x, position_y, 'MOVES!!!'
     moves[:available_moves].any? { |m| m[0] == position_x && m[1] == position_y }
   end
 
@@ -43,9 +43,9 @@ class Piece < ApplicationRecord
   end
 
   def ensure_moved_set
-    unless self.moved
-        self.moved = true
-    end
+    return if moved
+
+    self.moved = true
   end
 
   def kill_piece(piece)
