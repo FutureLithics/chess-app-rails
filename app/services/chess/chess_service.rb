@@ -6,13 +6,13 @@ class ChessService < ApplicationService
 
   attr_accessor :game
 
-  def initialize(game)
+  def initialize(game, init_pieces = true)
     @game = game
 
-    initialize_pieces(game)
+    initialize_pieces(game) if init_pieces
   end
 
-  def self.get_available_moves(piece, pieces)
-    get_moves_by_piece(piece, pieces)
+  def self.get_available_moves(piece, pieces, deep = true)
+    get_moves_by_piece(piece, pieces, deep)
   end
 end

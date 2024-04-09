@@ -31,6 +31,7 @@ class BoardPresenter
     return if game.nil?
 
     pieces = game.get_active_pieces
+
     pieces.map do |piece|
       ChessService.get_available_moves(piece, pieces)
     end

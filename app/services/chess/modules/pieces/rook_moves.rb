@@ -9,7 +9,11 @@ class RookMoves < PieceBase
 
   def piece_with_moves
     hash = piece.serializable_hash
-    hash[:available_moves] = determine_available_moves(piece)
+
+    moves = determine_available_moves(piece)
+    moves = filter_king_moves(moves)
+
+    hash[:available_moves] = moves
     hash.symbolize_keys
   end
 
@@ -43,6 +47,8 @@ class RookMoves < PieceBase
   end
 
   def determine_valid_move(x, y, i)
+    # return false if will_move_expose_king?(x, y)
+
     return false if is_out_of_bounds?(x, y)
 
     return true unless is_square_occupied?(x, y) # in this case will be a friendly piece

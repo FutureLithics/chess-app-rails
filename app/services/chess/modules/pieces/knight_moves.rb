@@ -7,7 +7,11 @@ class KnightMoves < PieceBase
 
   def piece_with_moves
     hash = piece.serializable_hash
-    hash[:available_moves] = determine_available_moves(piece)
+
+    moves = determine_available_moves(piece)
+    moves = filter_king_moves(moves)
+
+    hash[:available_moves] = moves
     hash.symbolize_keys
   end
 
@@ -21,6 +25,8 @@ class KnightMoves < PieceBase
   end
 
   def basic_moves(moves, x, y)
+    # return false if will_move_expose_king?(x, y)
+
     PATTERNS.each_with_index do |m, _i|
       moveX = x + m[0]
       moveY = y + m[1]

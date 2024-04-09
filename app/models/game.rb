@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Game < ApplicationRecord
-  after_create :initialize_game
+  after_create :initialize_game, unless: :skip_callbacks
 
   has_many :pieces
 
