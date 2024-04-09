@@ -40,6 +40,8 @@ class PieceBase
     king = parsed_elements[:king]
     enemies = parsed_elements[:enemies]
 
+    remove_enemy_if_move_kills(enemies, x, y)
+
     parsed_elements[:virtual_piece][position_x: x]
     parsed_elements[:virtual_piece][position_y: y]
 
@@ -49,7 +51,7 @@ class PieceBase
   end
 
   def enemies_threaten_piece?(enemies, piece_checked, virtual_pieces)
-    coordinates = [piece_checked[:position_x], piece_checked[:position_y]]
+    coordinates = [piece_checked[:position_x].to_i, piece_checked[:position_y].to_i]
 
     enemies.each do |enemy|
       enemy_with_moves = ChessService.get_available_moves(enemy, virtual_pieces, false)
@@ -74,5 +76,9 @@ class PieceBase
     end
 
     hash
+  end
+
+  def remove_enemy_if_move_kills(enemies, x, y)
+    enemies.reject! { |enemy| enemy[:position_x] == x && enemy[:position_y] == y }
   end
 end
