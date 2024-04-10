@@ -9,7 +9,7 @@ describe 'King Moves' do
       @user1 = create(:user, id: 0)
       @user2 = create(:user, id: 1, display_name: 'Ivan', email: 'ivan@futurelithics.com')
       @game = create(:game)
-      @game.get_active_pieces.each { |piece| piece.destroy }
+      @game.get_active_pieces.each(&:destroy)
       @king = create(:piece,
                      game_id: @game[:id],
                      piece_type: 'king',
@@ -38,11 +38,11 @@ describe 'King Moves' do
 
     it 'castle with right rook' do
       @rook = create(:piece,
-                      game_id: @game[:id],
-                      piece_type: 'rook',
-                      position_x: 7,
-                      position_y: 4,
-                      color: 'white')
+                     game_id: @game[:id],
+                     piece_type: 'rook',
+                     position_x: 7,
+                     position_y: 4,
+                     color: 'white')
 
       piece = ChessService.get_available_moves(@king, @game.get_active_pieces)
 
@@ -51,11 +51,11 @@ describe 'King Moves' do
 
     it 'castle with left rook' do
       @rook = create(:piece,
-                               game_id: @game[:id],
-                               piece_type: 'rook',
-                               position_x: 0,
-                               position_y: 4,
-                               color: 'white')
+                     game_id: @game[:id],
+                     piece_type: 'rook',
+                     position_x: 0,
+                     position_y: 4,
+                     color: 'white')
 
       piece = ChessService.get_available_moves(@king, @game.get_active_pieces)
 
@@ -64,17 +64,17 @@ describe 'King Moves' do
 
     it 'cannot with right rook if piece between' do
       @rook = create(:piece,
-                               game_id: @game[:id],
-                               piece_type: 'rook',
-                               position_x: 7,
-                               position_y: 4,
-                               color: 'white')
+                     game_id: @game[:id],
+                     piece_type: 'rook',
+                     position_x: 7,
+                     position_y: 4,
+                     color: 'white')
 
       @friendly = create(:piece,
-                                game_id: @game[:id],
-                                position_x: 6,
-                                position_y: 4,
-                                color: 'white')
+                         game_id: @game[:id],
+                         position_x: 6,
+                         position_y: 4,
+                         color: 'white')
 
       piece = ChessService.get_available_moves(@king, @game.get_active_pieces)
 
@@ -83,17 +83,17 @@ describe 'King Moves' do
 
     it 'cannot with left rook if piece between' do
       @rook = create(:piece,
-                               game_id: @game[:id],
-                               piece_type: 'rook',
-                               position_x: 0,
-                               position_y: 4,
-                               color: 'white')
+                     game_id: @game[:id],
+                     piece_type: 'rook',
+                     position_x: 0,
+                     position_y: 4,
+                     color: 'white')
 
       @friendly = create(:piece,
-                                game_id: @game[:id],
-                                position_x: 2,
-                                position_y: 4,
-                                color: 'white')
+                         game_id: @game[:id],
+                         position_x: 2,
+                         position_y: 4,
+                         color: 'white')
 
       piece = ChessService.get_available_moves(@king, @game.get_active_pieces)
 
@@ -102,12 +102,12 @@ describe 'King Moves' do
 
     it 'cannot with right rook if rook moved' do
       @rook = create(:piece,
-                               game_id: @game[:id],
-                               piece_type: 'rook',
-                               position_x: 7,
-                               position_y: 4,
-                               color: 'white',
-                               moved: true)
+                     game_id: @game[:id],
+                     piece_type: 'rook',
+                     position_x: 7,
+                     position_y: 4,
+                     color: 'white',
+                     moved: true)
 
       piece = ChessService.get_available_moves(@king, @game.get_active_pieces)
 
@@ -116,12 +116,12 @@ describe 'King Moves' do
 
     it 'cannot with left rook if rook moved' do
       @rook = create(:piece,
-                               game_id: @game[:id],
-                               piece_type: 'rook',
-                               position_x: 0,
-                               position_y: 4,
-                               color: 'white',
-                               moved: true)
+                     game_id: @game[:id],
+                     piece_type: 'rook',
+                     position_x: 0,
+                     position_y: 4,
+                     color: 'white',
+                     moved: true)
 
       piece = ChessService.get_available_moves(@king, @game.get_active_pieces)
 
@@ -130,11 +130,11 @@ describe 'King Moves' do
 
     it 'cannot with right rook if king moved' do
       @rook = create(:piece,
-                               game_id: @game[:id],
-                               piece_type: 'rook',
-                               position_x: 7,
-                               position_y: 4,
-                               color: 'white')
+                     game_id: @game[:id],
+                     piece_type: 'rook',
+                     position_x: 7,
+                     position_y: 4,
+                     color: 'white')
 
       @king.update!(moved: true)
 
@@ -145,11 +145,11 @@ describe 'King Moves' do
 
     it 'cannot with left rook if king moved' do
       @rook = create(:piece,
-                               game_id: @game[:id],
-                               piece_type: 'rook',
-                               position_x: 0,
-                               position_y: 4,
-                               color: 'white')
+                     game_id: @game[:id],
+                     piece_type: 'rook',
+                     position_x: 0,
+                     position_y: 4,
+                     color: 'white')
 
       @king.update!(moved: true)
 

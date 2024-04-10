@@ -74,22 +74,22 @@ class KingMoves < PieceBase
 
   def test_castle_moves(index, y)
     if index.zero?
-      [1,2,3].each do |x_pos|
-        return false if is_square_occupied?(x_pos, y) 
+      [1, 2, 3].each do |x_pos|
+        return false if is_square_occupied?(x_pos, y)
       end
 
-      return castle_rook_test(0, y)
+      castle_rook_test(0, y)
     elsif index == 1
-      [5,6].each do |x_pos|
-        return false if is_square_occupied?(x_pos, y) 
+      [5, 6].each do |x_pos|
+        return false if is_square_occupied?(x_pos, y)
       end
 
-      return castle_rook_test(7, y)      
+      castle_rook_test(7, y)
     end
   end
 
   def castle_rook_test(x, y)
-    return false if !is_square_occupied?(x, y)
+    return false unless is_square_occupied?(x, y)
 
     piece = get_piece_from_square(x, y)
 
