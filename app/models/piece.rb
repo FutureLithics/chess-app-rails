@@ -12,7 +12,7 @@ class Piece < ApplicationRecord
     game = Game.find_by_id(game_id)
     presenter = BoardPresenter.new(nil, game)
 
-    broadcast_replace_to(:move_updates, partial: 'games/partials/board', target: 'chess_board',
+    broadcast_update_to(:move_updates, partial: 'games/partials/board', target: 'chess_board',
                                         locals: { presenter: presenter })
   }
 end
