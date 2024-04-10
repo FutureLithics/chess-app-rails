@@ -12,7 +12,11 @@ class PieceBase
   end
 
   def is_square_occupied?(x, y)
-    pieces.any? { |c| c[:position_x] == x && c[:position_y] == y }
+    pieces.any? { |c| c[:position_x] == x && c[:position_y] == y && c[:active] }
+  end
+
+  def get_piece_from_square(x, y)
+    pieces.select { |c| c[:position_x] == x && c[:position_y] == y }.first
   end
 
   def is_square_occupied_by_enemy?(x, y)

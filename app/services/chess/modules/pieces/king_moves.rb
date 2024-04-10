@@ -6,6 +6,7 @@ class KingMoves < PieceBase
   attr_accessor :direction, :moved
 
   PATTERNS = [[1, 1], [1, -1], [-1, -1], [-1, 1], [0, 1], [1, 0], [0, -1], [-1, 0]].freeze
+  SPECIAL_MOVES = [[-2, 0], [2, 0]].freeze
 
   def piece_with_moves
     hash = piece.serializable_hash
@@ -24,6 +25,7 @@ class KingMoves < PieceBase
     moves = []
 
     basic_moves(moves, x, y)
+    special_moves(moves, x, y)
   end
 
   def basic_moves(moves, x, y)
@@ -34,6 +36,21 @@ class KingMoves < PieceBase
       moveY = y + m[1]
 
       move_or_stop(moves, moveX, moveY, _i)
+    end
+
+    moves
+  end
+
+  def special_moves(moves, x, y)
+    return moves if piece[:moved]
+
+    SPECIAL_MOVES.each_with_index do |m, _i|
+      next unless test_castle_moves(_i, y)
+
+      moveX = x + m[0]
+      moveY = y + m[1]
+
+      moves.push([moveX, moveY])
     end
 
     moves
@@ -53,5 +70,31 @@ class KingMoves < PieceBase
     stops.push(i)
 
     is_square_occupied_by_enemy?(x, y) ? true : false
+  end
+
+  def test_castle_moves(index, y)
+    if index.zero?
+      [1,2,3].each do |x_pos|
+        return false if is_square_occupied?(x_pos, y) 
+      end
+
+      return castle_rook_test(0, y)
+    elsif index == 1
+      [5,6].each do |x_pos|
+        return false if is_square_occupied?(x_pos, y) 
+      end
+
+      return castle_rook_test(7, y)      
+    end
+  end
+
+  def castle_rook_test(x, y)
+    return false if !is_square_occupied?(x, y)
+
+    piece = get_piece_from_square(x, y)
+
+    return false if piece[:moved]
+
+    true
   end
 end
