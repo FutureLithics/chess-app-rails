@@ -13,6 +13,6 @@ class Piece < ApplicationRecord
     presenter = BoardPresenter.new(nil, game)
 
     broadcast_update_to(:move_updates, partial: 'games/partials/board', target: 'chess_board',
-                                        locals: { presenter: presenter })
+                                       locals: { presenter: presenter })
   }
 end
