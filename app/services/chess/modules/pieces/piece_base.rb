@@ -37,13 +37,14 @@ class PieceBase
     virtual_pieces = pieces
     parsed_elements = parse_for_virtualization(virtual_pieces)
 
-    king = parsed_elements[:king]
+    virtual_piece = parsed_elements[:virtual_piece]
+    king = virtual_piece[:piece_type] == 'king' ? virtual_piece : parsed_elements[:king]
     enemies = parsed_elements[:enemies]
 
     remove_enemy_if_move_kills(enemies, x, y)
 
-    parsed_elements[:virtual_piece][position_x: x]
-    parsed_elements[:virtual_piece][position_y: y]
+    parsed_elements[:virtual_piece][position_x: x.to_i]
+    parsed_elements[:virtual_piece][position_y: y.to_i]
 
     return enemies_threaten_piece?(enemies, king, virtual_pieces) unless king.nil?
 
@@ -51,7 +52,7 @@ class PieceBase
   end
 
   def enemies_threaten_piece?(enemies, piece_checked, virtual_pieces)
-    coordinates = [piece_checked[:position_x].to_i, piece_checked[:position_y].to_i]
+    coordinates = [piece_checked[:position_x], piece_checked[:position_y]]
 
     enemies.each do |enemy|
       enemy_with_moves = ChessService.get_available_moves(enemy, virtual_pieces, false)
