@@ -12,6 +12,7 @@ class GamesController < ApplicationController
 
   def show
     game = Game.active_game_by_user(current_or_guest_user).last
+    @user = current_or_guest_user
 
     @presenter = BoardPresenter.new(current_or_guest_user, game)
   end
@@ -24,6 +25,7 @@ class GamesController < ApplicationController
     if game.save
       # create presenter for sending up game data
       @presenter = BoardPresenter.new(current_or_guest_user, game)
+      @user = current_or_guest_user
 
       respond_to do |format|
         format.html { redirect_to game_room_path }

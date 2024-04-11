@@ -10,9 +10,10 @@ class Piece < ApplicationRecord
 
   after_update_commit lambda {
     game = Game.find_by_id(game_id)
+    user = User.find_by_id(player_id)
     presenter = BoardPresenter.new(nil, game)
 
     broadcast_update_to(:move_updates, partial: 'games/partials/board', target: 'chess_board',
-                                       locals: { presenter: presenter })
+                                       locals: { presenter: presenter, user: user })
   }
 end

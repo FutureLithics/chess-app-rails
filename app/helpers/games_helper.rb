@@ -5,10 +5,10 @@ module GamesHelper
     current_user.nil? ? 'Guest' : current_user.display_name
   end
 
-  def restrict_actions_to_user(piece)
-    return if piece.nil?
+  def restrict_actions_to_user(user, piece)
+    return if piece.nil? || user.nil?
 
-    current_or_guest_user.id == piece[:player_id].to_i ? 'click->piece#select' : ''
+    user.id == piece[:player_id].to_i ? 'true' : ''
   end
 
   def chess_board

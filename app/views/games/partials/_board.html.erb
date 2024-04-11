@@ -19,8 +19,9 @@
                             data-piece-x="<%= square[:x] %>"
                             data-piece-y="<%= square[:y] %>"
                             data-piece-item="<%= piece.to_json %>"
+                            data-piece-selectable="<%= restrict_actions_to_user(user, piece) %>"
                             data-piece-target="piece"
-                            data-action=<%= restrict_actions_to_user(piece) %>>
+                            data-action="click->piece#select">
                             <p class="pointer-events-none"><%= piece && "#{piece[:color]} #{piece[:piece_type]}" %></p>
                     </div>
                 <% end %>

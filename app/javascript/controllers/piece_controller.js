@@ -16,8 +16,11 @@ export default class extends Controller {
     select(event) {
         this.removeClass(this.availableClass);
         this.removeClass(this.selectedClass);
+        const selectable = event.target.dataset.pieceSelectable;
 
-        if (!this.selectMode) {
+        console.log(selectable)
+
+        if (!this.selectMode && selectable == 'true') {
             this.piece = event.target;
             this.piece.classList.add(this.selectedClass);
 
