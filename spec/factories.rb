@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :turn do
+  end
+
   factory :user do
     id { 0 }
     display_name { 'Vlad the Impaler' }

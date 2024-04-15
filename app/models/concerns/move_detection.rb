@@ -39,12 +39,6 @@ module MoveDetection
       end
     end
 
-    def ensure_moved_set
-      return if moved
-
-      update_column(:moved, true)
-    end
-
     def kill_piece(piece)
       piece.update(active: false)
     end

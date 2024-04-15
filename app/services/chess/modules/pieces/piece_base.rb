@@ -39,7 +39,7 @@ class PieceBase
     return false unless deep
 
     virtual_pieces = pieces
-    
+
     parsed_elements = parse_for_virtualization(virtual_pieces, x, y)
 
     virtual_piece = parsed_elements[:virtual_piece]
@@ -81,7 +81,7 @@ class PieceBase
         hash[:king] = virtual_piece
       end
 
-      hash[:virtual_pieces].push virtual_piece 
+      hash[:virtual_pieces].push virtual_piece
     end
 
     hash
