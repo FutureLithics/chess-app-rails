@@ -44,6 +44,11 @@ class GamesController < ApplicationController
     valid_move = piece.update(position_x: x, position_y: y)
 
     if valid_move
+		game = Game.find_by_id(piece[:game_id])
+		presenter = BoardPresenter.new(current_or_guest_user, game)
+
+		piece.broadcast_update_to(:move_updates, partial: 'games/partials/board', target: 'chess_board',
+			locals: { presenter: presenter, user: current_or_guest_user })
       respond_to do |format|
         format.json { render json: { success: true } }
       end
