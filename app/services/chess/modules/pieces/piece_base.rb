@@ -39,13 +39,13 @@ class PieceBase
     return false unless deep
 
     virtual_pieces = pieces
-    parsed_elements = parse_for_virtualization(virtual_pieces)
+    parsed_elements = parse_for_virtualization(virtual_pieces, x, y)
 
     virtual_piece = parsed_elements[:virtual_piece]
     king = virtual_piece[:piece_type] == 'king' ? virtual_piece : parsed_elements[:king]
     enemies = parsed_elements[:enemies]
 
-    remove_enemy_if_move_kills(enemies, x, y)
+    enemies = remove_enemy_if_move_kills(enemies, x, y)
 
     parsed_elements[:virtual_piece][position_x: x.to_i]
     parsed_elements[:virtual_piece][position_y: y.to_i]
@@ -67,11 +67,14 @@ class PieceBase
     false
   end
 
-  def parse_for_virtualization(virtual_pieces)
+  def parse_for_virtualization(virtual_pieces, x, y)
     hash = { king: nil, virtual_piece: nil, enemies: [] }
 
     virtual_pieces.each do |vp|
       if vp[:id] == piece[:id]
+        vp[:position_x] = x
+        vp[:position_y] = y
+
         hash[:virtual_piece] = vp
       elsif vp[:color] != piece[:color]
         hash[:enemies].push vp
@@ -84,6 +87,6 @@ class PieceBase
   end
 
   def remove_enemy_if_move_kills(enemies, x, y)
-    enemies.reject! { |enemy| enemy[:position_x] == x && enemy[:position_y] == y }
+    enemies.reject { |enemy| enemy[:position_x] == x && enemy[:position_y] == y }
   end
 end

@@ -15,7 +15,8 @@ describe 'King Moves' do
                      piece_type: 'king',
                      position_x: 4,
                      position_y: 4,
-                     color: 'white')
+                     color: 'white',
+                     moved: false)
     end
 
     it 'can move one space on start' do
@@ -136,14 +137,28 @@ describe 'King Moves' do
                      position_y: 4,
                      color: 'white')
 
-      @king.update!(moved: true)
+      @king_moved = create(:piece,
+                           game_id: @game[:id],
+                           piece_type: 'king',
+                           position_x: 4,
+                           position_y: 4,
+                           color: 'white',
+                           moved: true)
 
-      piece = ChessService.get_available_moves(@king, @game.get_active_pieces)
+      piece = ChessService.get_available_moves(@king_moved, @game.get_active_pieces)
 
       expect(piece[:available_moves]).to_not include [6, 7]
     end
 
     it 'cannot with left rook if king moved' do
+      @king_moved = create(:piece,
+                           game_id: @game[:id],
+                           piece_type: 'king',
+                           position_x: 4,
+                           position_y: 4,
+                           color: 'white',
+                           moved: true)
+
       @rook = create(:piece,
                      game_id: @game[:id],
                      piece_type: 'rook',
@@ -151,9 +166,7 @@ describe 'King Moves' do
                      position_y: 4,
                      color: 'white')
 
-      @king.update!(moved: true)
-
-      piece = ChessService.get_available_moves(@king, @game.get_active_pieces)
+      piece = ChessService.get_available_moves(@king_moved, @game.get_active_pieces)
 
       expect(piece[:available_moves]).to_not include [6, 7]
     end
