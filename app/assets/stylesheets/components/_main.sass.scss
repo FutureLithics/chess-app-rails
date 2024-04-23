@@ -38,9 +38,13 @@ select, option {
 }
 
 .square {
+    padding-bottom: 5px;
     width: 60px;
     height: 60px;
     border: 1px solid theme('colors.baseBlack');
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 
     &.black {
         background-color: theme('colors.nightSea');
@@ -62,4 +66,31 @@ select, option {
 .numerals {
     width: 2rem;
     padding: 0 1rem;
+}
+
+.svg-piece {
+    max-width: 95%;
+    max-height: 95%;
+    pointer-events: none;
+
+    &.pawn {
+        max-width: 60%;
+        max-height: 60%;
+    }
+
+    &.knight {
+        max-width: 75%;
+        max-height: 75%;        
+    }
+
+    &.rook {
+        max-width: 65%;
+        max-height: 65%;
+    }
+
+    .piece-white {
+        stroke: black;
+        color: #ffe8ca;
+    }
+
 }
