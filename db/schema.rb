@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_415_175_511) do
+ActiveRecord::Schema[7.1].define(version: 20_240_423_181_846) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -22,6 +22,7 @@ ActiveRecord::Schema[7.1].define(version: 20_240_415_175_511) do
     t.integer 'winner'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.integer 'player_turn', default: 0
   end
 
   create_table 'pieces', force: :cascade do |t|
