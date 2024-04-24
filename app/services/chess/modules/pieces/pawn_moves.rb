@@ -9,7 +9,7 @@ class PawnMoves < PieceBase
     @direction = determine_direction
     @moved = piece[:moved]
 
-    hash = piece.serializable_hash
+    hash = hash_piece(piece)
 
     moves = determine_available_moves(piece)
     moves = filter_king_moves(moves)

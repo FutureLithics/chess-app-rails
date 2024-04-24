@@ -5,96 +5,112 @@ white:
         name: "Glastonbury Tor"
         position_y: 7
         position_x: 0
+        rating: 5
     1:
         piece_type: "knight"
         active: true
         name: "Parzifal"
         position_y: 7
         position_x: 1
+        rating: 3
     2:
         piece_type: "bishop"
         active: true
         name: "Merlin"
         position_y: 7
         position_x: 2
+        rating: 3
     3:
         piece_type: "queen"
         active: true
         name: "Guenevere"
         position_y: 7
         position_x: 3
+        rating: 9
     4:
         piece_type: "king"
         active: true
         name: "Arthur"
         position_y: 7
         position_x: 4
+        rating: 15
     5:
         piece_type: "bishop"
         active: true
         name: "Father Ted"
         position_y: 7
         position_x: 5
+        rating: 3
     6:
         piece_type: "knight"
         active: true
         name: "English Kinighit"
         position_y: 7
         position_x: 6
+        rating: 3
     7:
         piece_type: "rook"
         active: true
         name: "Chartres"
         position_y: 7
-        position_x: 7       
+        position_x: 7
+        rating: 5       
     8:
         piece_type: "pawn"
         active: true
         name: "The Gas Man"
         position_y: 6
         position_x: 0
+        rating: 1
     9:
         piece_type: "pawn"
         active: true
         name: "Tazer Face"
         position_y: 6
         position_x: 1
+        rating: 1
     10:
         piece_type: "pawn"
         active: true
         name: "Your Mom"
         position_y: 6
         position_x: 2
+        rating: 1
     11:
         piece_type: "pawn"
         active: true
         name: "Mr. Hedgehog"
         position_y: 6
         position_x: 3
+        rating: 1
     12:
         piece_type: "pawn"
         active: true
         name: "Mr. Peanut Butter"
         position_y: 6
         position_x: 4
+        rating: 1
     13:
         piece_type: "pawn"
         active: true
         name: ""
         position_y: 6
         position_x: 5
+        rating: 1
     14:
         piece_type: "pawn"
         active: true
         name: "Fred Colon"
         position_y: 6
         position_x: 6
+        rating: 1
     15:
         piece_type: "pawn"
         active: true
         name: "Nobby Nobbs"
         position_y: 6
         position_x: 7
+        rating: 1
 black:
     16:
         piece_type: "rook"
@@ -102,93 +118,109 @@ black:
         name: "The Dork Tower"
         position_y: 0
         position_x: 0
+        rating: 5
     17:
         piece_type: "knight"
         active: true
         name: "Sherriff of Nottingham"
         position_y: 0
         position_x: 1
+        rating: 3
     18:
         piece_type: "bishop"
         active: true
         name: "Dark Lord's Apprentice"
         position_y: 0
         position_x: 2
+        rating: 3
     19:
         piece_type: "queen"
         active: true
         name: "Lilith"
         position_y: 0
         position_x: 3
+        rating: 9
     20:
         piece_type: "king"
         active: true
         name: "Ahriman"
         position_y: 0
         position_x: 4
+        rating: 15
     21:
         piece_type: "bishop"
         active: true
         name: "The Black Abbot"
         position_y: 0
         position_x: 5
+        rating: 3
     22:
         piece_type: "knight"
         active: true
         name: "Uncle Frank"
         position_y: 0
         position_x: 6
+        rating: 3
     23:
         piece_type: "rook"
         active: true
         name: "The Lonely Sentinel"
         position_y: 0
-        position_x: 7       
+        position_x: 7
+        rating: 5     
     24:
         piece_type: "pawn"
         active: true
         name: "Dunderhead"
         position_y: 1
         position_x: 0
+        rating: 1
     25:
         piece_type: "pawn"
         active: true
         name: "Dumbfounded"
         position_y: 1
         position_x: 1
+        rating: 1
     26:
         piece_type: "pawn"
         active: true
         name: "Chowderhead"
         position_y: 1
         position_x: 2
+        rating: 1
     27:
         piece_type: "pawn"
         active: true
         name: "Dante"
         position_y: 1
         position_x: 3
+        rating: 1
     28:
         piece_type: "pawn"
         active: true
         name: "The Idiot"
         position_y: 1
         position_x: 4
+        rating: 1
     29:
         piece_type: "pawn"
         active: true
         name: "Stankmouth's Horrid Cousin"
         position_y: 1
         position_x: 5
+        rating: 1
     30:
         piece_type: "pawn"
         active: true
         name: "Your Mom A Second Time"
         position_y: 1
         position_x: 6
+        rating: 1
     31:
         piece_type: "pawn"
         active: true
         name: "Jafo"
         position_y: 1
         position_x: 7
+        rating: 1

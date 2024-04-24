@@ -17,13 +17,11 @@ class ChessService < ApplicationService
     get_moves_by_piece(piece, pieces, deep)
   end
 
-  def self.cpu_move(pieces, cpu_pieces)
-    pieces_with_moves = get_available_moves_by_color(pieces, cpu_pieces)
-
-    random_move(pieces_with_moves)
+  def self.cpu_move(cpu_pieces, player_pieces)
+    determine_move(cpu_pieces, player_pieces)
   end
 
-  def self.get_available_moves_by_color(pieces, cpu_pieces)
-    cpu_pieces.map { |piece| get_moves_by_piece(piece, pieces, true) }
+  def self.get_available_moves_by_color(all_pieces, pieces)
+    pieces.map { |piece| get_moves_by_piece(piece, all_pieces, true) }
   end
 end

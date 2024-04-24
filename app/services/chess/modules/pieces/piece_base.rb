@@ -11,6 +11,12 @@ class PieceBase
     @deep = deep
   end
 
+  def hash_piece(piece)
+    return piece if piece.is_a? Hash
+
+    piece.serializable_hash
+  end
+
   def is_square_occupied?(x, y)
     pieces.any? { |c| c[:position_x] == x && c[:position_y] == y && c[:active] }
   end

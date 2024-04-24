@@ -8,7 +8,7 @@ class RookMoves < PieceBase
   PATTERNS = [[0, 1], [1, 0], [0, -1], [-1, 0]].freeze
 
   def piece_with_moves
-    hash = piece.serializable_hash
+    hash = hash_piece(piece)
 
     moves = determine_available_moves(piece)
     moves = filter_king_moves(moves)

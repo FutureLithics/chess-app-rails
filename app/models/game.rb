@@ -26,11 +26,13 @@ class Game < ApplicationRecord
     color = white_turn? ? 'white' : 'black'
 
     cpu_pieces = get_active_pieces_by_color(color)
-    pieces = get_active_pieces
+    all_pieces = get_active_pieces
+    player_pieces = all_pieces - cpu_pieces
 
-    ChessService.cpu_move(pieces, cpu_pieces)
+    cpu_pieces = ChessService.get_available_moves_by_color(all_pieces, cpu_pieces)
+    player_pieces = ChessService.get_available_moves_by_color(all_pieces, player_pieces)
 
-    puts 'Hey!'
+    ChessService.cpu_move(cpu_pieces, player_pieces)
   end
 
   private
