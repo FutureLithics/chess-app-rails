@@ -26,7 +26,7 @@ module CpuMoves
       rating = determine_initial_rating(piece, player_pieces)
 
       piece[:available_moves].map do |move|
-        virtual_piece = all_pieces.select { |vp| vp[:id] == piece[:id] }.first
+        virtual_piece = all_pieces.select { |vp| vp[:id] == piece[:id] }.first.dup
         rating = determine_move_rating(virtual_piece, move, all_pieces, rating)
 
         hash = {
@@ -51,7 +51,9 @@ module CpuMoves
     piece[:rating]
   end
 
-  def determine_move_rating(piece, move, all_pieces, rating)
+  def determine_move_rating(piece, move, all_pieces, rating, current = 0, depth = 1)
+    return 0 if current > depth
+
     color = piece[:color]
     piece[:id]
 
@@ -62,36 +64,40 @@ module CpuMoves
     # get updated enemy available moves, determine if this piece or more valuable piece can be taken
     # average overall payoff of possible enemy moves
 
-    check_virtual_payoffs(all_pieces, rating, color)
+    check_virtual_payoffs(all_pieces, rating, color, current, depth)
   end
 
-  def check_virtual_payoffs(all_pieces, rating, color)
+  def check_virtual_payoffs(all_pieces, rating, color, current, depth)
     friendly_pieces = all_pieces.select { |piece| piece[:color] == color }
-    enemy_pieces = all_pieces.reject { |piece| piece[:color] == color }
+    enemy_pieces = all_pieces - friendly_pieces
 
     friendly_pieces = ChessService.get_available_moves_by_color(all_pieces, friendly_pieces)
     enemy_pieces = ChessService.get_available_moves_by_color(all_pieces, enemy_pieces)
 
-    friendly_payoff = calculate_payoff(friendly_pieces, enemy_pieces)
-    enemy_payoff = calculate_payoff(enemy_pieces, friendly_pieces)
+    friendly_payoff = calculate_payoff(friendly_pieces, enemy_pieces, current, depth)
+    enemy_payoff = calculate_payoff(enemy_pieces, friendly_pieces, current, depth)
 
     rating + friendly_payoff - enemy_payoff
   end
 
-  def calculate_payoff(pieces, opposing_pieces)
+  def calculate_payoff(pieces, opposing_pieces, _current, _depth)
     move_payoffs = []
+    rating = 0
 
     pieces.each do |piece|
       piece[:available_moves].each do |move|
         opposing_piece = attack_opposing_piece(move, opposing_pieces)
 
+        # thread = Thread.new { determine_move_rating(piece, move, all_pieces, rating, current + 1, depth) }
+        # rating = thread.value
+
         move_payoffs.push opposing_piece[:rating] unless opposing_piece.nil?
       end
     end
 
-    return 0 if move_payoffs.empty?
+    return rating if move_payoffs.empty?
 
-    move_payoffs.sum(0.0) / move_payoffs.size
+    (move_payoffs.sum(0.0) / move_payoffs.size) + rating
   end
 
   def attack_opposing_piece(move, opposing_pieces)

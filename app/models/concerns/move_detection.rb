@@ -7,8 +7,9 @@ module MoveDetection
     def validate_move
       valid = true
       game = Game.find_by_id(game_id)
-      pieces = game.get_active_pieces
+      pieces = game.get_active_pieces.dup
 
+      set_check_if_king_threatened(pieces)
       determine_en_passant_attack(pieces) # must be first before all en_passant is reset to false
       detection_castle_move(pieces)
       mark_pawn_en_passant(pieces)
@@ -21,7 +22,7 @@ module MoveDetection
       valid
     end
 
-    def is_in_available_moves(moves, position_x, position_y)
+    def is_in_available_moves(_moves, _position_x, _position_y)
       moves[:available_moves].any? { |m| m[0] == position_x && m[1] == position_y }
     end
 
@@ -81,13 +82,51 @@ module MoveDetection
     def transition_rook(rook)
       return if rook.nil? || rook[:piece_type] != 'rook'
 
-      puts piece_type, rook[:piece_type], 'rooks'
-
       if rook[:position_x].zero?
         rook.update_columns(position_x: 3, moved: true)
       else
         rook.update_columns(position_x: 5, moved: true)
       end
+    end
+
+    def set_check_if_king_threatened(pieces)
+      kings = pieces.select { |piece| piece[:piece_type] == 'king' }
+
+      black_king = kings.select { |king| king[:color] == 'black' }.first
+      check_if_pieces_threaten_king(black_king, pieces, 'white')
+
+      white_king = kings.select { |king| king[:color] == 'white' }.first
+      check_if_pieces_threaten_king(white_king, pieces, 'black')
+    end
+
+    def check_if_pieces_threaten_king(king, pieces, color)
+      return if king.nil? # generally only a problem in tests
+
+      color_pieces = pieces.select { |piece| piece[:color] == color }
+
+      color_pieces = ChessService.get_available_moves_by_color(pieces, color_pieces)
+
+      color_pieces.each do |piece|
+        piece[:available_moves].each do |move|
+          if king[:position_x] == move[0] && king[:position_y] == move[1]
+            king.update_columns(checked: true)
+
+            game.set_checkmate(king[:color]) if detect_check_or_stalemate(pieces, king[:color])
+
+            return
+          elsif king[:checked]
+            king.update_columns(checked: false)
+          end
+        end
+      end
+    end
+
+    def detect_check_or_stalemate(pieces, color)
+      color_pieces = pieces.select { |piece| piece[:color] == color }
+
+      color_pieces = ChessService.get_available_moves_by_color(pieces, color_pieces)
+
+      color_pieces.all? { |piece| piece[:available_moves].empty? }
     end
   end
 end

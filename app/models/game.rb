@@ -2,6 +2,7 @@
 
 class Game < ApplicationRecord
   enum :player_turn, %i[white_turn black_turn]
+  enum :game_state, %i[in_progress checkmate stalemate resigned abandoned]
 
   after_create :initialize_game, unless: :skip_callbacks
 
@@ -20,6 +21,18 @@ class Game < ApplicationRecord
 
   def get_player_by_turn
     white_turn? ? player_one : player_two
+  end
+
+  def set_checkmate(color)
+    checkmate!
+
+    winner = if color == 'white'
+               player_two
+             else
+               player_one
+             end
+
+    update_columns(winner: winner)
   end
 
   def cpu_move
