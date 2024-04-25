@@ -1,17 +1,20 @@
-<div class="w-100 min-h-screen mt-12 w-100 items-stretch flex md:flex-row flex-col">
-	<div id="players" class="grow md:w-1/4  px-4 py-8">
-		<%= render "games/partials/players" %>
+<div class="w-100 min-h-screen mt-4 w-100 items-start flex md:flex-row flex-col">
+	<div class="grow flex flex-wrap md:w-2/3 flex-col content-center justify-start">
+		<%= turbo_frame_tag "new_game" %>
+		<div id="player-one">
+			<%= render "games/partials/players", player: @presenter.players[1] %>
+		</div>
+		<%= render "games/partials/board", presenter: @presenter, user: @user %>
+		<div id="player-two">
+			<%= render "games/partials/players", player: @presenter.players[0] %>
+		</div>
 	</div>
-	<div class="grow flex flex-wrap md:w-3/4 flex-col content-center md:content-start md:justify-center">
-		<div class="flex justify-end content-center px-8 py-8">
+	<div class="md:w-1/3 h-full flex flex-col justify-start flex-grow-1">
+		<div class="flex justify-start content-center px-4">
 			<%= link_to "New Game",
 				init_game_path,
 				class: "btn btn__cta p-1 text-base",
 				data: { turbo_frame: "new_game" } %>
 		</div>
-
-		<%= turbo_frame_tag "new_game" %>
-
-		<%= render "games/partials/board", presenter: @presenter, user: @user %>
 	</div>
 </div>

@@ -5,7 +5,7 @@
     data-controller="piece"
     data-piece-available-class="move-available"
     data-piece-selected-class="piece-selected">
-    <div class="w-full max-w-fit flex flex-col mb-24 px-8">
+    <div class="w-full max-w-fit flex flex-col">
         <% letters = ('a'..'h').to_a.reverse %>
         <% chess_board.each_with_index do |y_axis, y| %>
             <div class="flex">
@@ -21,6 +21,7 @@
                             data-piece-item="<%= piece.to_json %>"
                             data-piece-selectable="<%= restrict_actions_to_user(user, piece) %>"
                             data-piece-target="piece"
+                            data-piece-active=<%= presenter.in_progress? %>
                             data-action="click->piece#select">
                             <%= piece && image_tag("#{piece[:piece_type]}-#{piece[:color]}.svg", alt: piece[:piece_type], class: "svg-piece #{piece[:piece_type]}") %>
                     </div>

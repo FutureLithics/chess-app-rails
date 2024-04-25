@@ -14,36 +14,38 @@ export default class extends Controller {
     }
 
     select(event) {
-        this.removeClass(this.availableClass);
-        this.removeClass(this.selectedClass);
-        const selectable = event.target.dataset.pieceSelectable;
+        if (event.target.dataset.pieceActive == "true") {
 
-        console.log(selectable)
+            this.removeClass(this.availableClass);
+            this.removeClass(this.selectedClass);
+            const selectable = event.target.dataset.pieceSelectable;
 
-        if (!this.selectMode && selectable == 'true') {
-            this.piece = event.target;
-            this.piece.classList.add(this.selectedClass);
+            if (!this.selectMode && selectable == 'true') {
+                this.piece = event.target;
+                this.piece.classList.add(this.selectedClass);
 
-            this.setSelect();
-        } else if (this.selectMode && this.piece) {
-            let item = this.parseItem(this.piece?.dataset);
-            const x = event.target.dataset.pieceX;
-            const y = event.target.dataset.pieceY;
-            const inAvailableMoves = item?.available_moves.filter((move) => {
-                return move[0] == x && move[1] == y;
-            })
-            
-            if(item && inAvailableMoves.length > 0) {
-                const id = item.id;
+                this.setSelect();
+            } else if (this.selectMode && this.piece) {
+                let item = this.parseItem(this.piece?.dataset);
+                const x = event.target.dataset.pieceX;
+                const y = event.target.dataset.pieceY;
+                const inAvailableMoves = item?.available_moves.filter((move) => {
+                    return move[0] == x && move[1] == y;
+                })
+                
+                if(item && inAvailableMoves.length > 0) {
+                    const id = item.id;
 
-                this.movePiece(id, x, y)                
+                    this.movePiece(id, x, y)                
+                }
+
+
+                this.selectMode = false
+            } else {
+                this.piece = event.target;
+                this.piece.classList.add(this.selectedClass);            
             }
 
-
-            this.selectMode = false
-        } else {
-            this.piece = event.target;
-            this.piece.classList.add(this.selectedClass);            
         }
 
     }

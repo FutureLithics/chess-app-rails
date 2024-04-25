@@ -1,3 +1,4 @@
 <%= turbo_stream.update "new_game", "" %>
-<%= turbo_stream.update "players", partial: 'games/partials/players' %>
+<%= turbo_stream.update "player-one", partial: 'games/partials/players', locals: {player: @presenter.players[1]} %>
+<%= turbo_stream.update "player-two", partial: 'games/partials/players', locals: {player: @presenter.players[0]} %>
 <%= turbo_stream.update "chess_board", partial: 'games/partials/board', locals: { presenter: @presenter, user: @user } %>

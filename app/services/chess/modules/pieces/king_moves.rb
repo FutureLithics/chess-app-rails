@@ -93,7 +93,7 @@ class KingMoves < PieceBase
 
     piece = get_piece_from_square(x, y)
 
-    return false if piece[:moved]
+    return false if piece[:moved] || piece[:checked]
 
     true
   end

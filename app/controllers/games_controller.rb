@@ -49,6 +49,10 @@ class GamesController < ApplicationController
 
       piece.broadcast_update_to(:move_updates, partial: 'games/partials/board', target: 'chess_board',
                                                locals: { presenter: presenter, user: current_or_guest_user })
+
+	  # TODO: detect whether game is over and trigger modal to alert user
+
+
       respond_to do |format|
         format.json { render json: { success: true } }
       end
