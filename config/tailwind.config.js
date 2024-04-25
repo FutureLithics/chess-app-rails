@@ -20,7 +20,8 @@ module.exports = {
         warriorRed: "#5F0B09",
         brightBlue: "#83E3C6",
         lightRed: "#DB120E",
-        goldenText: "#D6E38A"
+        goldenText: "#D6E38A",
+        coal: "#303030"
       }
     },
   },

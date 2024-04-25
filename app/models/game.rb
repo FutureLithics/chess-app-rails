@@ -32,7 +32,7 @@ class Game < ApplicationRecord
                player_one
              end
 
-    update_columns(winner: winner)
+    update!(winner: winner)
   end
 
   def cpu_move

@@ -61,6 +61,11 @@ select, option {
     &.piece-selected {
         box-shadow: inset 1px 1px 3px 2px theme('colors.green.500');;
     }
+
+    @media screen and (max-width: 550px) {
+        width: 30px;
+        height: 30px;    
+    }
 }
 
 .numerals {

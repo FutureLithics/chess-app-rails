@@ -7,7 +7,7 @@ module MoveDetection
     def validate_move
       valid = true
       game = Game.find_by_id(game_id)
-      pieces = game.get_active_pieces.dup
+      pieces = game.get_active_pieces
 
       set_check_if_king_threatened(pieces)
       determine_en_passant_attack(pieces) # must be first before all en_passant is reset to false
@@ -127,6 +127,14 @@ module MoveDetection
       color_pieces = ChessService.get_available_moves_by_color(pieces, color_pieces)
 
       color_pieces.all? { |piece| piece[:available_moves].empty? }
+    end
+
+    def set_piece_in_pieces(pieces)
+      active_piece = pieces.select { |piece| piece[:id] == id }.first
+
+      active_piece.update_columns(position_x: position_x, position_y: position_y)
+
+      pieces
     end
   end
 end
