@@ -50,8 +50,11 @@ class GamesController < ApplicationController
       piece.broadcast_update_to(:move_updates, partial: 'games/partials/board', target: 'chess_board',
                                                locals: { presenter: presenter, user: current_or_guest_user })
 
-      # TODO: detect whether game is over and trigger modal to alert user
+	  data = send_end_game_state(game)
 
+	  game.broadcast_replace_to(:game_state, partial: 'games/partials/modal', target: 'game_modal',
+		locals: { message: data }) unless data.nil?
+      # TODO: detect whether game is over and trigger modal to alert user
       respond_to do |format|
         format.json { render json: { success: true } }
       end
@@ -72,5 +75,24 @@ class GamesController < ApplicationController
 
   def move_params
     params.require(:move).permit(:piece_id, :position_x, :position_y)
+  end
+
+  def send_end_game_state(game)
+	data = {title: "", message: "", class_name: ""}
+
+	if game.checkmate?
+		win = current_or_guest_user.id == game.winner
+		data[:title] = "Checkmate!"
+		data[:message] = win ? "Congratulations, You Won!" : "Sorry, You Lost..."
+		data[:class_name] = win ? "win" : "lose"
+	elsif game.stalemate?
+		data[:title] = "Stalemate..."
+		data[:message] = "You both lost. Good try"
+		data[:class_name] = "stalemate"
+	else
+		data = nil
+	end
+
+	data
   end
 end

@@ -12,14 +12,9 @@
     <%= hotwire_livereload_tags if Rails.env.development? %>
   </head>
 
-  <body>
-    <% flash.each do |type, msg| %>
-      <div>
-        <%= msg %>
-      </div>
-    <% end %>
+  <body class="flex flex-col">
     <%= render 'layouts/header'%>
-    <main class="container mx-auto px-4 py-4">
+    <main class="container mx-auto px-4 py-4 grow">
       <%= yield %>
     </main>
     <%= render 'layouts/footer'%>

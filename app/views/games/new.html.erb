@@ -5,11 +5,13 @@
             data-modal-target="modal"
             class="w-full h-full p-24 absolute left-0 top-0 flex justify-center content-center items-center bg-slate-700 bg-opacity-20">
             <div class="relative inline-block max-h-fit shrink p-8 bg-slate-600 rounded-lg">
-                <div
-                    class="absolute right-2 top-2 p-1 cursor-pointer text-baseBlack bg-none border border-baseBlack text-2xl "
-                    data-action="click->modal#close"
-                >
-                    x
+                <div class="w-full">
+                    <div
+                        class="close-modal-icon"
+                        data-action="click->modal#close"
+                    >
+                        <p>x</p>
+                    </div>
                 </div>
                 <%= render "forms/opponents" %>
             </div>
