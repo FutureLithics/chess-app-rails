@@ -28,6 +28,8 @@ class BoardPresenter
   end
 
   def in_progress?
+    return false if game.nil?
+
     game.in_progress?
   end
 
