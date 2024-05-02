@@ -29,7 +29,7 @@ Phase 1 Requirements
 Models
 ------
 
-![UML Model Diagram.jpeg](https://www.dropbox.com/scl/fi/4tknpehllm1rq6xuoq3ue/UML-Model-Diagram.jpg?rlkey=kj4i8qnst5yrp8t68jjmz3bx2&st=mkhvue8z&dl=0)
+![UML Model Diagram.jpeg](https://www.dropbox.com/scl/fi/6eg4ksjdxplb70orud1gi/Jackson-Diagram-Basic-CPU-Moves.jpg)
 
 - #### User/Player
    - Contains account info and display name
