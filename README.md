@@ -29,7 +29,7 @@ Phase 1 Requirements
 Models
 ------
 
-![UML Model Diagram.jpeg](Chess%20Application%20Refactor.assets/UML%20Model%20Diagram.jpeg)
+![UML Model Diagram.jpeg](https://www.dropbox.com/scl/fi/4tknpehllm1rq6xuoq3ue/UML-Model-Diagram.jpg?rlkey=kj4i8qnst5yrp8t68jjmz3bx2&st=mkhvue8z&dl=0)
 
 - #### User/Player
    - Contains account info and display name
@@ -149,8 +149,6 @@ Mockups & Wireframes
 ![ChessAppMoodboard.png](Chess%20Application%20Refactor.assets/ChessAppMoodboard.png)
 
 General themes:
-
-Black Gold Red Blue War Gothic Shadow Mists Ghosts
 
 ![ChessAppPalette.jpeg](Chess%20Application%20Refactor.assets/ChessAppPalette.jpeg)
 
