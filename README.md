@@ -29,7 +29,7 @@ Phase 1 Requirements
 Models
 ------
 
-![UML Model Diagram.jpeg](https://www.dropbox.com/scl/fi/6eg4ksjdxplb70orud1gi/Jackson-Diagram-Basic-CPU-Moves.jpg)
+![UML Model Diagram.jpeg](https://www.dropbox.com/scl/fi/4tknpehllm1rq6xuoq3ue/UML-Model-Diagram.jpg?rlkey=kj4i8qnst5yrp8t68jjmz3bx2&st=m702vu1y&raw=1)
 
 - #### User/Player
    - Contains account info and display name
@@ -109,7 +109,7 @@ The most essential part of this feature is giving the cpu some visibility into c
 
 The basic flow is something like an iterative version item that can analyze the moves for each piece, and then analyze possible outcomes of each move to some nth degree:
 
-![Jackson Diagram Basic CPU Moves.jpeg](Chess%20Application%20Refactor.assets/Jackson%20Diagram%20Basic%20CPU%20Moves.jpeg)
+![Jackson Diagram Basic CPU Moves.jpeg](https://www.dropbox.com/scl/fi/6eg4ksjdxplb70orud1gi/Jackson-Diagram-Basic-CPU-Moves.jpg?rlkey=lrdrjyfgh9i5s7vjutw3bh60o&st=n7c2ji80&raw=1)
 
 First it needs to determine which pieces are currently threatened, and which enemy pieces are available for attack. If the piece is threatened, then this will add weight to the piece’s moves, a constant multiplied by the piece’s rank. More valuable pieces that are threatened need to be prioritized.
 
@@ -130,27 +130,13 @@ Views
 Mockups & Wireframes
 ----
 
-![ChessApplicationFlow.png](Chess%20Application%20Refactor.assets/ChessApplicationFlow.png)
-
-**Landing Page**
-
-![Landing page mobile.png](Chess%20Application%20Refactor.assets/Landing%20page%20mobile.png)
-
-![Landing Page Desktop.png](Chess%20Application%20Refactor.assets/Landing%20Page%20Desktop.png)
-
-![Game Page Mobile.png](Chess%20Application%20Refactor.assets/Game%20Page%20Mobile.png)
-
-![Game Page Desktop.png](Chess%20Application%20Refactor.assets/Game%20Page%20Desktop.png)
-
-![Games Index Mobile.png](Chess%20Application%20Refactor.assets/Games%20Index%20Mobile.png)
+![ChessApplicationFlow.png](https://www.dropbox.com/scl/fi/oxdiehywtcqbsupli8psi/ChessApplicationFlow.png?rlkey=339f5bpvtlw1kryewgr1jcm7e&st=12ddtu85&raw=1)
 
 ### Style Guide and Branding
 
-![ChessAppMoodboard.png](Chess%20Application%20Refactor.assets/ChessAppMoodboard.png)
-
 General themes:
 
-![ChessAppPalette.jpeg](Chess%20Application%20Refactor.assets/ChessAppPalette.jpeg)
+![ChessAppPalette.jpeg](https://www.dropbox.com/scl/fi/c53sxx9charx41u4wkb8p/ChessAppPalette.jpeg?rlkey=fb1m5arqpwf6rfcfgk7hln4ew&st=32mrw1cm&raw=1)
 
 Game States
 ------
