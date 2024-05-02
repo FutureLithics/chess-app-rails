@@ -4,6 +4,8 @@ require_relative 'boot'
 
 require 'rails/all'
 
+VERSION = '0.0.1'
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -21,6 +23,8 @@ module Chessapp
     config.autoload_paths += Dir[Rails.root.join('app', 'services', 'chess', '**/')]
 
     config.active_record.verify_foreign_keys_for_fixtures = false
+
+    config.application_version = VERSION
 
     # Configuration for the application, engines, and railties goes here.
     #
