@@ -38,8 +38,8 @@ class Game < ApplicationRecord
   def cpu_move
     color = white_turn? ? 'white' : 'black'
 
-    cpu_pieces = get_active_pieces_by_color(color)
     all_pieces = get_active_pieces
+    cpu_pieces = all_pieces.select { |piece| piece[:color] == color }
     player_pieces = all_pieces - cpu_pieces
 
     cpu_pieces = ChessService.get_available_moves_by_color(all_pieces, cpu_pieces)
