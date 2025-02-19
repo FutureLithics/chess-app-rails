@@ -13,4 +13,12 @@ class User < ApplicationRecord
   }
 
   scope :computer_opponents, -> { where(role: 'cpu') }
+
+  def cpu?
+    role == 'cpu'
+  end
+
+  def display_name
+    email.split('@').first
+  end
 end

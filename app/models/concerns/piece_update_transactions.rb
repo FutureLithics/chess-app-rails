@@ -5,10 +5,9 @@ module PieceUpdateTransactions
   include ActiveModel::Dirty
 
   def commit_transactions
-    ensure_moved_set
-    @pieces = game.get_active_pieces
-    set_check_if_king_threatened
+    log_message("🔄 Processing piece move transaction")
     update_turns
+    set_check_if_king_threatened
   end
 
   def ensure_moved_set
@@ -17,58 +16,100 @@ module PieceUpdateTransactions
     update_column(:moved, true)
   end
 
-  def update_turns
-    create_turn if was_move?
-  end
+  private
 
-  def was_move?
-    (position_x - position_x_before_last_save).abs.positive? || (position_y - position_y_before_last_save).abs.positive?
+  def update_turns
+    log_message("📝 Creating turn record")
+    create_turn
   end
 
   def create_turn
-    turn = Turn.new(initial_x: position_x_before_last_save, initial_y: position_y_before_last_save,
-                    next_x: position_x, next_y: position_y, player_id: player_id, game_id: game_id)
-
-    turn.save!
+    Turn.create!(
+      game_id: game.id,
+      initial_x: position_x_was || position_x,
+      initial_y: position_y_was || position_y,
+      next_x: position_x,
+      next_y: position_y,
+      player_id: player_id
+    )
   end
 
   def set_check_if_king_threatened
-    kings = @pieces.select { |piece| piece[:piece_type] == 'king' }
-
-    black_king = kings.select { |king| king[:color] == 'black' }.first
-    check_if_pieces_threaten_king(black_king, 'white')
-
-    white_king = kings.select { |king| king[:color] == 'white' }.first
-    check_if_pieces_threaten_king(white_king, 'black')
+    check_if_pieces_threaten_king
   end
 
-  def check_if_pieces_threaten_king(king, color)
-    return if king.nil? # generally only a problem in tests
+  def check_if_pieces_threaten_king
+    # Get all active pieces and kings
+    active_pieces = game.pieces.where(active: true)
+    kings = active_pieces.where(piece_type: 'king')
+    
+    # Convert pieces to hashes for move calculation
+    piece_hashes = active_pieces.map { |p| piece_to_hash(p) }
+    
+    # Check each king
+    kings.each do |king|
+      # Find pieces that could threaten the king
+      threatening_pieces = active_pieces.where.not(color: king.color)
+      
+      # Check if any piece can move to the king's position
+      is_threatened = threatening_pieces.any? do |piece|
+        moves = ChessService.get_moves_by_piece(
+          piece_to_hash(piece),
+          piece_hashes
+        )
+        moves.any? { |move| move[0] == king.position_x && move[1] == king.position_y }
+      end
 
-    color_pieces = @pieces.select { |piece| piece[:color] == color }
-
-    color_pieces = ChessService.get_available_moves_by_color(@pieces, color_pieces)
-
-    color_pieces.each do |piece|
-      piece[:available_moves].each do |move|
-        if king[:position_x] == move[0] && king[:position_y] == move[1]
-          king.update_columns(checked: true)
-
-          game.set_checkmate(king[:color]) if detect_check_or_stalemate(king[:color])
-
-          return
-        elsif king[:checked]
-          king.update_columns(checked: false)
+      # Update the king's check status
+      if is_threatened
+        king.update_columns(checked: true)
+        
+        # Check for checkmate
+        if detect_checkmate(king.color)
+          game.set_checkmate(king.color)
         end
+      else
+        king.update_columns(checked: false)
       end
     end
   end
 
-  def detect_check_or_stalemate(color)
-    color_pieces = @pieces.select { |piece| piece[:color] == color }
+  def detect_checkmate(color)
+    # Get all pieces of the checked color
+    pieces = game.pieces.where(active: true, color: color)
+    piece_hashes = pieces.map { |p| piece_to_hash(p) }
+    all_piece_hashes = game.get_active_pieces
+    
+    # If any piece has valid moves, it's not checkmate
+    pieces.none? do |piece|
+      moves = ChessService.get_moves_by_piece(
+        piece_to_hash(piece),
+        all_piece_hashes
+      )
+      moves.any?
+    end
+  end
 
-    color_pieces = ChessService.get_available_moves_by_color(@pieces, color_pieces)
+  def piece_to_hash(piece)
+    {
+      id: piece.id,
+      piece_type: piece.piece_type.to_s,
+      color: piece.color.to_s,
+      position_x: piece.position_x.to_i,
+      position_y: piece.position_y.to_i,
+      rating: piece.rating.to_i,
+      player_id: piece.player_id.to_i,
+      active: piece.active,
+      moved: piece.moved,
+      available_moves: []
+    }
+  end
 
-    color_pieces.all? { |piece| piece[:available_moves].empty? }
+  def log_message(msg)
+    if respond_to?(:cpu_log)
+      Rails.logger.debug cpu_log(msg)
+    else
+      Rails.logger.debug msg
+    end
   end
 end

@@ -1,9 +1,19 @@
 # frozen_string_literal: true
 
 class Turn < ApplicationRecord
+  include LogHelper
   belongs_to :game
 
+  validates :game_id, :player_id, :initial_x, :initial_y, :next_x, :next_y, presence: true
+
   after_create :update_game_player
+
+  after_initialize do
+    Rails.logger.debug cpu_log("🎲 Turn initialized with:")
+    Rails.logger.debug cpu_log("  Game ID: #{game_id}")
+    Rails.logger.debug cpu_log("  Player ID: #{player_id}")
+    Rails.logger.debug cpu_log("  Move: (#{initial_x},#{initial_y}) -> (#{next_x},#{next_y})")
+  end
 
   def get_first_position
     [initial_x, initial_y]
@@ -16,14 +26,27 @@ class Turn < ApplicationRecord
   private
 
   def update_game_player
-    game.white_turn? ? game.black_turn! : game.white_turn!
+    Rails.logger.debug cpu_log("⚡ TURN CALLBACK - Player: #{player_id}")
+    
+    current_player = game.get_player_by_turn
+    
+    unless player_id == current_player
+      Rails.logger.error error_log("❌ Move made by wrong player!")
+      return
+    end
 
-    computer_move
-  end
+    game.toggle_turn!
+    game.reload
 
-  def computer_move
-    player = User.find_by_id game.get_player_by_turn
-
-    game.cpu_move if player.cpu?
+    if game.get_player_by_turn == game.player_two && game.player_two_user&.cpu?
+      Rails.logger.debug cpu_log("🤖 CPU's turn - initiating move")
+      move_result = game.cpu_move
+      
+      if move_result
+        Rails.logger.debug success_log("✅ CPU move successful")
+      else
+        Rails.logger.error error_log("❌ CPU move failed")
+      end
+    end
   end
 end

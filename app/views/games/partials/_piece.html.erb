@@ -1,0 +1,19 @@
+<% Rails.logger.debug "Rendering piece: #{piece.inspect}" %>
+
+<div class="piece <%= piece[:color] %> <%= piece[:piece_type] %>"
+     data-piece-id="<%= piece[:id] %>"
+     data-piece-color="<%= piece[:color] %>"
+     data-piece-type="<%= piece[:piece_type] %>"
+     data-player-id="<%= piece[:player_id] %>"
+     data-piece-target="piece"
+     data-piece-selectable="<%= restrict_actions_to_user(user, piece) %>"
+     data-piece-active="<%= presenter.in_progress? %>"
+     data-action="click->piece#select"
+     draggable="<%= restrict_actions_to_user(user, piece) %>">
+  <% image_path = "#{piece[:piece_type]}-#{piece[:color]}.svg" %>
+  <% Rails.logger.debug "Image path: #{image_path}" %>
+  <%= image_tag(image_path, 
+                alt: piece[:piece_type], 
+                class: "svg-piece #{piece[:piece_type]}", 
+                style: "width: 40px; height: 40px;") %>
+</div> 

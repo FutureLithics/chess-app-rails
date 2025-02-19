@@ -1,0 +1,7 @@
+<div class="piece <%= piece[:color] %> <%= piece[:type] %>"
+     data-piece-id="<%= piece[:id] %>"
+     data-piece-color="<%= piece[:color] %>"
+     data-piece-type="<%= piece[:type] %>"
+     data-player-id="<%= piece[:player_id] %>"
+     draggable="<%= restrict_actions_to_user(@user, piece) %>">
+</div> 

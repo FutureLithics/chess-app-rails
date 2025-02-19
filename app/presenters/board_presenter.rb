@@ -34,12 +34,13 @@ class BoardPresenter
   end
 
   def pieces
-    return if game.nil?
+    return [] if game.nil?
 
-    pieces = game.get_active_pieces
+    active_pieces = game.get_active_pieces
 
-    pieces.map do |piece|
-      ChessService.get_available_moves(piece, pieces)
+    active_pieces.map do |piece|
+      moves = ChessService.get_available_moves(piece, active_pieces)
+      piece.merge(available_moves: moves)
     end
   end
 end

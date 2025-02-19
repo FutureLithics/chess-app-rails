@@ -13,13 +13,13 @@
                     <span><%= letters[y] %></span>
                 </div>
                 <% y_axis.each_with_index do |x_axis, x| %>
-                    <% square = define_square(x, y) %>
-                    <% piece = piece_helper(pieces, x, y) %>
+                    <% square = define_square(x.to_i, y.to_i) %>
+                    <% piece = piece_helper(pieces, x.to_i, y.to_i) %>
                     <div class="square <%= square[:color] == 0 ? "black" : "white" %>" 
                             data-piece-x="<%= square[:x] %>"
                             data-piece-y="<%= square[:y] %>"
-                            data-piece-item="<%= piece.to_json %>"
-                            data-piece-selectable="<%= restrict_actions_to_user(user, piece) %>"
+                            data-piece-item="<%= piece.to_json if piece %>"
+                            data-piece-selectable="<%= restrict_actions_to_user(user, piece) if user %>"
                             data-piece-target="piece"
                             data-piece-active=<%= presenter.in_progress? %>
                             data-action="click->piece#select">

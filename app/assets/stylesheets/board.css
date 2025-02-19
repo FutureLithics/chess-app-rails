@@ -1,0 +1,30 @@
+#chess_board {
+  border: 1px solid #333;
+  display: inline-block;
+  padding: 10px;
+}
+
+.square {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #999;
+}
+
+.square.black {
+  background-color: #769656;
+}
+
+.square.white {
+  background-color: #eeeed2;
+}
+
+.numerals {
+  width: 30px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 

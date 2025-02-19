@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   post 'games' => 'games#create', as: :new_game
   put 'move' => 'games#move'
 
-  resources :games
+  resources :games do
+    member do
+      put :move
+    end
+  end
 
   get 'pages/landing'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

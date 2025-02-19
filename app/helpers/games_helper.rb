@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 
 module GamesHelper
+  include LogHelper
+
   def display_user
     current_user.nil? ? 'Guest' : current_user.display_name
   end
 
   def restrict_actions_to_user(user, piece)
-    return if piece.nil? || user.nil?
-
+    return '' if piece.nil? || user.nil?
     user.id == piece[:player_id].to_i ? 'true' : ''
   end
 
   def chess_board
-    Array.new(8, Array.new(8))
+    Array.new(8) { Array.new(8) }
   end
 
   def define_square(x, y)
@@ -37,9 +38,15 @@ module GamesHelper
 
   def piece_helper(pieces, x, y)
     return if pieces.nil?
-
-    collection = pieces.select { |piece| piece[:position_x].to_i == x && piece[:position_y].to_i == y }
-
-    collection[0]
+    
+    x = x.to_i
+    y = y.to_i
+    
+    begin
+      pieces.find { |p| p[:position_x].to_i == x && p[:position_y].to_i == y }
+    rescue => e
+      Rails.logger.error error_log("Error in piece_helper: #{e.message}")
+      nil
+    end
   end
 end

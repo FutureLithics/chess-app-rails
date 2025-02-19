@@ -19,11 +19,16 @@ class GamesController < ApplicationController
 
   def create
     opponent = game_params[:player_two]
-
-    game = Game.new(player_one: current_or_guest_user.id, player_two: opponent)
+    
+    game = Game.new(
+      player_one: current_or_guest_user.id, 
+      player_two: opponent
+    )
 
     if game.save
-      # create presenter for sending up game data
+      Rails.logger.debug "Game created with player_one: #{game.player_one}, player_two: #{game.player_two}"
+      Rails.logger.debug "Player two is CPU? #{game.player_two_user&.cpu?}"
+      
       @presenter = BoardPresenter.new(current_or_guest_user, game)
       @user = current_or_guest_user
 
@@ -38,28 +43,71 @@ class GamesController < ApplicationController
 
   def move
     piece = Piece.find_by_id(move_params[:piece_id])
-    x = move_params[:position_x]
-    y = move_params[:position_y]
+    x = move_params[:position_x].to_i
+    y = move_params[:position_y].to_i
 
-    valid_move = piece.update(position_x: x, position_y: y)
+    Rails.logger.debug "Attempting to move piece #{piece.inspect} to position (#{x}, #{y})"
 
-    if valid_move
-      game = piece.game
-      presenter = BoardPresenter.new(current_or_guest_user, game)
+    # Validate the move position
+    if !x.between?(0, 7) || !y.between?(0, 7)
+      Rails.logger.error "Invalid move position: (#{x}, #{y})"
+      return render json: { success: false, error: 'Invalid move position' }, status: :unprocessable_entity
+    end
 
-      piece.broadcast_update_to(:move_updates, partial: 'games/partials/board', target: 'chess_board',
-                                               locals: { presenter: presenter, user: current_or_guest_user })
+    # Check for captures
+    captured_piece = piece.game.pieces.find_by(
+      position_x: x,
+      position_y: y,
+      active: true
+    )
+    
+    begin
+      Piece.transaction do
+        # Handle the capture if there is one
+        if captured_piece
+          Rails.logger.debug "Capturing piece: #{captured_piece.inspect}"
+          captured_piece.update!(active: false)
+        end
 
-	  data = send_end_game_state(game)
+        # Move the piece
+        Rails.logger.debug "Moving piece from (#{piece.position_x}, #{piece.position_y}) to (#{x}, #{y})"
+        valid_move = piece.update!(
+          position_x: x,
+          position_y: y,
+          moved: true,
+          active: true
+        )
 
-	  game.broadcast_replace_to(:game_state, partial: 'games/partials/modal', target: 'game_modal',
-		locals: { message: data }) unless data.nil?
-      # TODO: detect whether game is over and trigger modal to alert user
-      respond_to do |format|
-        format.json { render json: { success: true } }
+        if valid_move
+          game = piece.game
+          presenter = BoardPresenter.new(current_or_guest_user, game)
+
+          # Broadcast player's move
+          piece.broadcast_update_to(
+            :move_updates, 
+            partial: 'games/partials/board', 
+            target: 'chess_board',
+            locals: { presenter: presenter, user: current_or_guest_user }
+          )
+
+          data = send_end_game_state(game)
+          if data
+            game.broadcast_replace_to(
+              :game_state, 
+              partial: 'games/partials/modal', 
+              target: 'game_modal',
+              locals: { message: data }
+            )
+          end
+
+          render json: { success: true }
+        else
+          render json: { success: false, error: 'Move invalid' }, status: :unprocessable_entity
+        end
       end
-    else
-      flash.alert = 'Move Invalid'
+    rescue => e
+      Rails.logger.error "Error moving piece: #{e.message}\n#{e.backtrace.join("\n")}"
+      render json: { success: false, error: e.message }, status: :unprocessable_entity
     end
   end
 
