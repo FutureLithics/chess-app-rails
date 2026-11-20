@@ -5,13 +5,20 @@ FactoryBot.define do
   end
 
   factory :user do
-    id { 0 }
-    display_name { 'Vlad the Impaler' }
-    email { 'vladtheimpaler@futurelithics.com' }
+    sequence(:display_name) { |number| "Player #{number}" }
+    sequence(:email) { |number| "player-#{number}@example.com" }
     password { 'password' }
     rank { 900 }
     level { 1 }
-    role { 'cpu' }
+    role { 'player' }
+
+    trait :cpu do
+      role { 'cpu' }
+    end
+
+    trait :guest do
+      guest { true }
+    end
   end
 
   factory :game do

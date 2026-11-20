@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+yarn build
+yarn build:css
+RAILS_ENV=test bundle exec rails assets:clobber assets:precompile
+bundle exec rails db:test:prepare
+bundle exec rspec "$@"
