@@ -155,4 +155,50 @@ Game States
 
 - **Check** → king specific, is king in check?
 
+Testing
+------
+
+RSpec is the project's test harness. Browser-level end-to-end specs use
+Capybara with headless Chrome through Selenium.
+
+### Prerequisites
+
+- Ruby 3.3.6
+- PostgreSQL
+- Node and Yarn
+- Google Chrome or Chromium
+
+Install dependencies and prepare the test database:
+
+```sh
+bundle install
+yarn install --frozen-lockfile
+bin/rails db:create db:schema:load RAILS_ENV=test
+```
+
+Run the complete suite:
+
+```sh
+bin/rspec
+```
+
+The wrapper builds JavaScript and CSS, prepares the test database, and runs
+RSpec. Arguments are passed through, so a single file or example can be run:
+
+```sh
+bin/rspec spec/system/game_flow_spec.rb
+bin/rspec spec/system/game_flow_spec.rb:18
+```
+
+System specs run with the `async` Action Cable adapter and inline Active Job
+execution so Turbo Stream and CPU responses can be observed by the browser.
+When a system spec fails, its screenshot and rendered HTML are saved under
+`tmp/capybara/`.
+
+The baseline browser coverage currently includes Devise sign-in/sign-out,
+creating a CPU game, rendering the board, selecting a legal move, and observing
+the player and CPU turns. Registration and checkmate end-to-end scenarios
+depend on the planned authentication and rules-engine work and should be added
+with those epics.
+
 

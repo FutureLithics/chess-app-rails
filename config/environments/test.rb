@@ -24,6 +24,7 @@ Rails.application.configure do
   config.public_file_server.headers = {
     'Cache-Control' => "public, max-age=#{1.hour.to_i}"
   }
+  config.assets.compile = true
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
@@ -34,10 +35,11 @@ Rails.application.configure do
   config.action_dispatch.show_exceptions = :rescuable
 
   # Disable request forgery protection in test environment.
-  config.action_controller.allow_forgery_protection = false
+  config.action_controller.allow_forgery_protection = true
 
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
+  config.active_job.queue_adapter = :inline
 
   config.action_mailer.perform_caching = false
 
